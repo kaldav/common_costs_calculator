@@ -13,6 +13,7 @@ public class StartActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
     }
+    //asdad
 
 
     @Override
