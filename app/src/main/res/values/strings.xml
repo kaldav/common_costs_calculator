@@ -4,5 +4,9 @@
     <string name="app_name">Common Costs Calculator</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="btn_link_to_register">btn_link_to_register</string>
+    <string name="btn_login">btn_login</string>
+    <string name="hint_password">hint_password</string>
+    <string name="hint_email">hint_email</string>
 
 </resources>
