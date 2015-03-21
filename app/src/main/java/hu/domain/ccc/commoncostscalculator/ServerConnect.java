@@ -19,19 +19,19 @@ import java.util.List;
  */
 public class ServerConnect {
     HttpClient httpclient = new DefaultHttpClient();
-    HttpPost url;
+    HttpPost address;
     HttpResponse response;
     JSONObject returnJSON;
     String url;
 
-    public ServerConnect(HttpPost url) {
-        this.url=url;
+    public ServerConnect(HttpPost address) {
+        this.address=address;
     }
 
     public JSONObject Action(List<NameValuePair> parameters){
         try {
-            url.setEntity(new UrlEncodedFormEntity(parameters));
-            response = httpclient.execute(url);
+            address.setEntity(new UrlEncodedFormEntity(parameters));
+            response = httpclient.execute(address);
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
