@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Common Costs Calculator</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="hint_email">E-mail cím</string>
     <string name="hint_password">Jelszó</string>
     <string name="btn_login">Bejelentkezés</string>
     <string name="btn_link_to_register">Regisztráció</string>
-    <string name="title_activity_register">RegisterActivity</string>
     <string name="hint_name">Felhasználónév</string>
     <string name="btn_register">Regisztráció</string>
     <string name="btn_link_to_login">Bejelentkezés</string>
-
 </resources>
