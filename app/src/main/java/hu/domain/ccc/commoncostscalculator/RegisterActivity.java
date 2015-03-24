@@ -39,10 +39,10 @@ public class RegisterActivity extends ActionBarActivity {
 
                 //check values
                 if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()){
-                    Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_SHORT).show();
                 }
                 else if (!password.equals(passwordAgain)){
-                    Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_SHORT).show();
                 }
                 else {
                     HashMap<String, String> data = new HashMap<String, String>();
@@ -56,15 +56,15 @@ public class RegisterActivity extends ActionBarActivity {
                         JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
                         int ret = response.getInt("user_id");
                         if (ret>0) {
-                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_SHORT).show();
                             finish();
                         }
                         else if (ret==-1 || ret==-2){
-                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Exception e) {
-                        Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

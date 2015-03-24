@@ -46,7 +46,7 @@ public class StartActivity extends ActionBarActivity {
                 startActivityForResult(myIntent, 0);
             }
         } catch (Exception e) {
-            Toast.makeText(StartActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(StartActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_start);
@@ -69,7 +69,7 @@ public class StartActivity extends ActionBarActivity {
                 password = ((TextView)findViewById(R.id.password)).getText().toString();
                 //check values
                 if (username.isEmpty()  || password.isEmpty()){
-                    Toast.makeText(StartActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartActivity.this,getString(R.string.missed_data),Toast.LENGTH_SHORT).show();
                 }
                 else {
                     HashMap<String, String> data = new HashMap<String, String>();
@@ -82,7 +82,7 @@ public class StartActivity extends ActionBarActivity {
                         JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
                         int ret = response.getInt("user_id");
                         if (ret<0) {
-                            Toast.makeText(StartActivity.this, getString(R.string.wrong_username_or_password), Toast.LENGTH_LONG).show();
+                            Toast.makeText(StartActivity.this, getString(R.string.wrong_username_or_password), Toast.LENGTH_SHORT).show();
                         }
                         else { //belépés
                             //Toast.makeText(StartActivity.this, response.toString(), Toast.LENGTH_LONG).show();
@@ -95,7 +95,7 @@ public class StartActivity extends ActionBarActivity {
                             startActivityForResult(myIntent, 0);
                         }
                     } catch (Exception e) {
-                        Toast.makeText(StartActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(StartActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
             try {
                 post.execute("http://ccc.elitemagyaritasok.info");
             } catch (Exception e) {
-                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
 
             //session törlése kliens
