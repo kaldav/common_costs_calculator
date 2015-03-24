@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by David on 2015.03.21..
- */
 public class ServerConnect extends AsyncTask<String, String, String> {
     private HashMap<String, String> mData = null;// post data
 
@@ -32,10 +29,10 @@ public class ServerConnect extends AsyncTask<String, String, String> {
         byte[] result = null;
         String str = "";
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(params[0]);// in this case, params[0] is URL
+        HttpPost post = new HttpPost(params[0]); //params[0] = URL
         try {
             // set up post data
-            ArrayList<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
+            ArrayList<NameValuePair> nameValuePair = new ArrayList<>();
             Iterator<String> it = mData.keySet().iterator();
             while (it.hasNext()) {
                 String key = it.next();

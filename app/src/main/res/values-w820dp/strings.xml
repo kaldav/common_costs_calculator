@@ -15,4 +15,6 @@
     <string name="register">Regisztráció</string>
     <string name="email">E-mail cím</string>
     <string name="password_again">Jelszó újra</string>
+    <string name="missed_data">Hiányzó adatok!</string>
+    <string name="passwords_doesnt_match">A két jelszó nem egyezik!</string>
 </resources>

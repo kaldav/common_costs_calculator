@@ -1,6 +1,5 @@
 package hu.domain.ccc.commoncostscalculator;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,19 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends ActionBarActivity {
 
     Button registerBTN;
     Button toLogin;
+    String username;
+    String email;
+    String password;
+    String passwordAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +30,31 @@ public class RegisterActivity extends ActionBarActivity {
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> data = new HashMap<String, String>();
-                data.put("action", "registration");
-                data.put("key2", "value2");
-                ServerConnect post = new ServerConnect(data);
-                try {
-                    Toast.makeText(RegisterActivity.this, post.execute("http://ccc.elitemagyaritasok.info").get(),Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    Toast.makeText(RegisterActivity.this, e.toString(),Toast.LENGTH_LONG).show();
+                username = ((TextView)findViewById(R.id.username)).getText().toString();
+                email = ((TextView)findViewById(R.id.email)).getText().toString();
+                password = ((TextView)findViewById(R.id.password)).getText().toString();
+                passwordAgain = ((TextView)findViewById(R.id.password_again)).getText().toString();
+
+                //check values
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG);
+                }
+                else if (!password.equals(passwordAgain)){
+                    Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_LONG);
+                }
+                else {
+                    HashMap<String, String> data = new HashMap<String, String>();
+                    data.put("action", "registration");
+                    data.put("username", username);
+                    data.put("password", password);
+                    data.put("email", email);
+                    ServerConnect post = new ServerConnect(data);
+                    try {
+                        Toast.makeText(RegisterActivity.this, post.execute("http://ccc.elitemagyaritasok.info").get(), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
