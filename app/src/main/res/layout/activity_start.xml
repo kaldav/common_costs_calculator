@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:background="@color/bg_login"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:scrollHorizontally="true">
 
         <EditText
             android:id="@+id/username"
