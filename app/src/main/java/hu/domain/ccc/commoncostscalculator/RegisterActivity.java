@@ -34,28 +34,25 @@ public class RegisterActivity extends ActionBarActivity {
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RegisterActivity.this, "Clicked",Toast.LENGTH_LONG).show();
                 HashMap<String, String> data = new HashMap<String, String>();
                 data.put("action", "registration");
                 data.put("key2", "value2");
                 ServerConnect post = new ServerConnect(data);
                 try {
                     Toast.makeText(RegisterActivity.this, post.execute("http://ccc.elitemagyaritasok.info").get(),Toast.LENGTH_LONG).show();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Toast.makeText(RegisterActivity.this, e.toString(),Toast.LENGTH_LONG).show();
                 }
             }
         });
 
+
+        //back to login
         toLogin = (Button) findViewById(R.id.linkToLogin);
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(RegisterActivity.this, StartActivity.class);
-                //myIntent.putExtra("key", value); //Optional parameters
-                RegisterActivity.this.startActivity(myIntent);
+                finish();
             }
         });
 

@@ -11,10 +11,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -27,16 +23,10 @@ import java.util.Iterator;
 public class ServerConnect extends AsyncTask<String, String, String> {
     private HashMap<String, String> mData = null;// post data
 
-    /**
-     * constructor
-     */
     public ServerConnect(HashMap<String, String> data) {
         mData = data;
     }
 
-    /**
-     * background
-     */
     @Override
     protected String doInBackground(String... params) {
         byte[] result = null;
