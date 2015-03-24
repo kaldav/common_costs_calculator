@@ -38,8 +38,7 @@ public class RegisterActivity extends ActionBarActivity {
                 passwordAgain = ((TextView)findViewById(R.id.password_again)).getText().toString();
 
                 //check values
-                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty())
-                {
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()){
                     Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG).show();
                 }
                 else if (!password.equals(passwordAgain)){
