@@ -7,23 +7,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class StartActivity extends ActionBarActivity {
 
-    Button register;
+    Button registerBTN;
+    Button loginBTN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        register = (Button)findViewById(R.id.btnLinkToRegisterScreen);
+        registerBTN = (Button)findViewById(R.id.btnLinkToRegisterScreen);
 
-        register.setOnClickListener(new View.OnClickListener() {
+        registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(StartActivity.this, RegisterActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
                 StartActivity.this.startActivity(myIntent);
+            }
+        });
+        loginBTN = (Button)findViewById(R.id.btnLogin);
+        loginBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(StartActivity.this, "Clicked", Toast.LENGTH_LONG).show();
             }
         });
 

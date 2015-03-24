@@ -7,4 +7,8 @@
     <string name="hint_name">Felhasználónév</string>
     <string name="btn_register">Regisztráció</string>
     <string name="btn_link_to_login">Bejelentkezés</string>
+    <string name="username">Felhasználónév</string>
+    <string name="password">Jelszó</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="link_to_register">Még nincs fiókod?</string>
 </resources>
