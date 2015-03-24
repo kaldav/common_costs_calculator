@@ -38,16 +38,16 @@ public class RegisterActivity extends ActionBarActivity {
                 //check values
                 if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty())
                 {
-                    Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG);
+                    Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_LONG).show();
                 }
                 else if (!password.equals(passwordAgain)){
-                    Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_LONG);
+                    Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_LONG).show();
                 }
                 else {
                     HashMap<String, String> data = new HashMap<String, String>();
                     data.put("action", "registration");
                     data.put("username", username);
-                    data.put("password", password);
+                    data.put("password", Crypto.md5(password));
                     data.put("email", email);
                     ServerConnect post = new ServerConnect(data);
                     try {
