@@ -57,6 +57,7 @@ public class RegisterActivity extends ActionBarActivity {
                         int ret = response.getInt("user_id");
                         if (ret>0) {
                             Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                            finish();
                         }
                         else if (ret==-1){
                             Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username), Toast.LENGTH_LONG).show();
