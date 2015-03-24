@@ -12,5 +12,6 @@
     <string name="hint_name">Felhasználónév</string>
     <string name="btn_register">Regisztráció</string>
     <string name="btn_link_to_login">Bejelentkezés</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

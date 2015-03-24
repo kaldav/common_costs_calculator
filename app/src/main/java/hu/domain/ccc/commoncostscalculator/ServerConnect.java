@@ -24,8 +24,9 @@ public class ServerConnect {
     JSONObject returnJSON;
     String url;
 
-    public ServerConnect(HttpPost address) {
-        this.address=address;
+    public ServerConnect(String address) {
+
+        this.address=new HttpPost(address);
     }
 
     public JSONObject Action(List<NameValuePair> parameters){
