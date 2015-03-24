@@ -18,7 +18,7 @@ public class StartActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        registerBTN = (Button)findViewById(R.id.btnLinkToRegisterScreen);
+        registerBTN = (Button)findViewById(R.id.linkToRegister);
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,7 +28,7 @@ public class StartActivity extends ActionBarActivity {
                 StartActivity.this.startActivity(myIntent);
             }
         });
-        loginBTN = (Button)findViewById(R.id.btnLogin);
+        loginBTN = (Button)findViewById(R.id.loginBTN);
         loginBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

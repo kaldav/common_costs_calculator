@@ -1,5 +1,6 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 public class RegisterActivity extends ActionBarActivity {
 
     Button registerBTN;
+    Button toLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,16 @@ public class RegisterActivity extends ActionBarActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        toLogin = (Button) findViewById(R.id.linkToLogin);
+        toLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(RegisterActivity.this, StartActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                RegisterActivity.this.startActivity(myIntent);
             }
         });
 

@@ -11,4 +11,8 @@
     <string name="password">Jelszó</string>
     <string name="login">Bejelentkezés</string>
     <string name="link_to_register">Még nincs fiókod?</string>
+    <string name="link_to_login">Már van fiókod?</string>
+    <string name="register">Regisztráció</string>
+    <string name="email">E-mail cím</string>
+    <string name="password_again">Jelszó újra</string>
 </resources>
