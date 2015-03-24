@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class RegisterActivity extends ActionBarActivity {
@@ -51,7 +53,19 @@ public class RegisterActivity extends ActionBarActivity {
                     data.put("email", email);
                     ServerConnect post = new ServerConnect(data);
                     try {
-                        Toast.makeText(RegisterActivity.this, post.execute("http://ccc.elitemagyaritasok.info").get(), Toast.LENGTH_LONG).show();
+                        //JSON feldolgozása
+                        JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
+                        int ret = response.getInt("user_id");
+                        if (ret>0) {
+                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                        }
+                        else if (ret==-1){
+                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username), Toast.LENGTH_LONG).show();
+                        }
+                        else if (ret==-2){
+                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_email), Toast.LENGTH_LONG).show();
+                        }
+
                     } catch (Exception e) {
                         Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }

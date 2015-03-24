@@ -17,4 +17,7 @@
     <string name="password_again">Jelszó újra</string>
     <string name="missed_data">Hiányzó adatok!</string>
     <string name="passwords_doesnt_match">A két jelszó nem egyezik!</string>
+    <string name="registration_success">Sikeres regisztráció</string>
+    <string name="invalid_username">Létező felhasználónév!</string>
+    <string name="wrong_email">Létező e-mail cím!</string>
 </resources>
