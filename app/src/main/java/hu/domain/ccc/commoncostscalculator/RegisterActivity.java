@@ -59,11 +59,8 @@ public class RegisterActivity extends ActionBarActivity {
                             Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
                             finish();
                         }
-                        else if (ret==-1){
-                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username), Toast.LENGTH_LONG).show();
-                        }
-                        else if (ret==-2){
-                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_email), Toast.LENGTH_LONG).show();
+                        else if (ret==-1 || ret==-2){
+                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_LONG).show();
                         }
 
                     } catch (Exception e) {
