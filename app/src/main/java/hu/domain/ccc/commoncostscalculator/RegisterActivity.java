@@ -13,31 +13,38 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends ActionBarActivity {
 
-    TextView usernameTV;
     Button registerBTN;
-    ServerConnect connection;
-    JSONObject ret;
-    List<NameValuePair> parameters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        connection = new ServerConnect("http://ccc.elitemagyaritasok.info");
-        registerBTN.findViewById(R.id.buttonRegister);
+
+        registerBTN = (Button)findViewById(R.id.buttonRegister);
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parameters.clear();
-                parameters.add(new BasicNameValuePair("action", "registration"));
-                parameters.add(new BasicNameValuePair("username", "david"));
-                ret = connection.Action(parameters);
-                Toast.makeText(RegisterActivity.this,ret.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "Clicked",Toast.LENGTH_LONG);
+                /*HashMap<String, String> data = new HashMap<String, String>();
+                data.put("action", "registration");
+                data.put("key2", "value2");
+                ServerConnect post = new ServerConnect(data);
+                try {
+                    Toast.makeText(RegisterActivity.this, post.execute("http://ccc.elitemagyaritasok.info").get(),Toast.LENGTH_LONG);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(RegisterActivity.this, "END",Toast.LENGTH_LONG);*/
             }
         });
 
