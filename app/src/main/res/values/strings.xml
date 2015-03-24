@@ -16,5 +16,6 @@
     <string name="wrong_username">Létező felhasználónév!</string>
     <string name="wrong_email">Létező e-mail cím!</string>
     <string name="wrong_username_or_password">Hibás felhasználónév vagy jelszó!</string>
+    <string name="logout">Kijelentkezés</string>
 
 </resources>
