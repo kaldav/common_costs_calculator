@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CommonCostsCalculator.iml" filepath="$PROJECT_DIR$/CommonCostsCalculator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common_costs_calculator.iml" filepath="$PROJECT_DIR$/common_costs_calculator.iml" />
     </modules>

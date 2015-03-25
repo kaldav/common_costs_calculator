@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/projectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PrijectName"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/projectStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2015.01.01"
+        android:layout_below="@id/projectName"
+        android:layout_alignParentRight="true"
+        android:textSize="12dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/projectDescription"
+        android:layout_width="match_parent"
+        android:text="ProjectDesc"
+        android:textSize="16dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/projectName"/>
+
+</RelativeLayout>
