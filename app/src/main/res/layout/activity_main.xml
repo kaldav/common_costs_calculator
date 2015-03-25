@@ -4,23 +4,23 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+
+    android:background="@color/bg_login"
     tools:context="hu.domain.ccc.commoncostscalculator.MainActivity">
 
     <Button
         android:id="@+id/newProjectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Project"/>
-    <TextView
-        android:id="@+id/hiTeam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/newProjectButton"
-        android:text="HELLO TEAM!!!"/>
+        android:text="New Project"
+        android:textAllCaps="false"
+        android:shadowRadius="3"
+        android:textSize="15dp"/>
+
     <ListView
         android:id="@+id/Project_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/hiTeam"
+        android:layout_below="@id/newProjectButton"
         />
 </RelativeLayout>
