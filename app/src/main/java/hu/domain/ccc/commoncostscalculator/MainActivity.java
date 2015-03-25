@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -46,28 +47,24 @@ public class MainActivity extends ActionBarActivity {
             //JSON feldolgozása
             JSONArray response = new JSONArray(post.execute("http://ccc.elitemagyaritasok.info").get());
 
-            for(int i=0;i<response.length();i++) {
-            JSONObject temp = response.getJSONObject(i);
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            projectItems.add(new Projects(temp.getString("name"),format.parse(temp.getString("start_date")),temp.getString("description")));
-            }
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject temp = response.getJSONObject(i);
+                    DateFormat format = new SimpleDateFormat("yyyy-LL-dd");
+                    projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description")));
+                }
 
-            projectList = (ListView)findViewById(R.id.Project_list);
-            projectAdapter = new ProjectAdapter(projectItems);
-            projectList.setAdapter(projectAdapter);
-
-            /*int ret = response.getInt("user_id");
-            if (ret>0) {
-                Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            else if (ret==-1 || ret==-2){
-                Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_SHORT).show();
-            }*/
-
-        } catch (Exception e) {
+                projectList = (ListView) findViewById(R.id.Project_list);
+                projectAdapter = new ProjectAdapter(projectItems);
+                projectList.setAdapter(projectAdapter);
+        }
+        catch (JSONException e) {
+            Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e)
+        {
             Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
         }
+
 
     }
 
