@@ -7,6 +7,8 @@ import java.util.Date;
  */
 public class Projects {
     private String name;
+    private Date startDate;
+    private String description;
 
     public Projects(String name, Date startDate, String description) {
         this.name = name;
@@ -26,6 +28,5 @@ public class Projects {
         return description;
     }
 
-    private Date startDate;
-    private String description;
+
 }
