@@ -7,8 +7,14 @@
     tools:context="hu.domain.ccc.commoncostscalculator.MainActivity">
 
     <TextView
+        android:id="@+id/hiTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HELLO TEAM!!!"/>
-
+    <ListView
+        android:id="@+id/Project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/hiTeam"
+        />
 </RelativeLayout>
