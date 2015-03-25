@@ -1,5 +1,7 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -25,16 +27,47 @@ import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity {
     Button logoutBTN;
+
     String PrefFileName = "data";
     List<Projects> projectItems = new ArrayList<>();
     ListView projectList;
     ProjectAdapter projectAdapter;
+    Button newProjectButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
+        newProjectButton= (Button)findViewById(R.id.newProjectButton);
+
+        newProjectButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View arg0) {
+                                                    final Dialog dialog = new Dialog(MainActivity.this);
+                                                    dialog.setTitle("New Project");
+                                                    dialog.setContentView(R.layout.new_project_dialog);
+                                                     dialog.show();
+
+                                                    Button newProjectButtonCreate= (Button)dialog.findViewById(R.id.newProjectCreate);
+                                                    Button newProjectButtonCancel= (Button)dialog.findViewById(R.id.newProjectCancel);
+
+                                                    newProjectButtonCancel.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    newProjectButtonCreate.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                }
+                                            });
 
         SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
         String session = settings.getString("session","");
