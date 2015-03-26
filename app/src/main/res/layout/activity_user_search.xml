@@ -4,29 +4,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="hu.domain.ccc.commoncostscalculator.UserSearchActivity"
+    android:background="@color/bg_login">
 
-    android:background="@color/bg_login"
-    tools:context="hu.domain.ccc.commoncostscalculator.MainActivity">
-
+    <EditText
+        android:id="@+id/user_search_edittext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_search_hint"/>
     <Button
-        android:id="@+id/UserSearchtestButton"
+        android:id="@+id/user_search_button"
+        android:layout_below="@id/user_search_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Users"/>
-    <Button
-        android:layout_below="@id/UserSearchtestButton"
-        android:id="@+id/newProjectButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Project"
-        android:textAllCaps="false"
-        android:shadowRadius="3"
-        android:textSize="15dp"/>
+        android:text="@string/user_search_button"/>
 
     <ListView
-        android:id="@+id/Project_list"
+        android:id="@+id/user_search_list"
+        android:layout_below="@id/user_search_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/newProjectButton"
-        />
+        android:layout_height="match_parent"></ListView>
+
+
 </RelativeLayout>

@@ -16,5 +16,12 @@
     <string name="wrong_username_or_email">Létező fiók!</string>
     <string name="wrong_username_or_password">Hibás felhasználónév vagy jelszó!</string>
     <string name="logout">Kijelentkezés</string>
+    <string name="title_activity_project_details">Project Adatai</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_user_search">UserSearchActivity</string>
+    <string name="user_search_hint">név vagy email</string>
+    <string name="user_search_button">Felhasználó keresése</string>
 
 </resources>
