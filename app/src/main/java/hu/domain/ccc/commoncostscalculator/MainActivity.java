@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
+    Button SearchUsersButton; //temp button, csak tesztelésre
 
 
     @Override
@@ -41,6 +42,17 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
+        SearchUsersButton = (Button) findViewById(R.id.UserSearchtestButton);
+
+        SearchUsersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,UserSearchActivity.class);
+                startActivity(i);
+
+
+            }
+        });
 
         newProjectButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
