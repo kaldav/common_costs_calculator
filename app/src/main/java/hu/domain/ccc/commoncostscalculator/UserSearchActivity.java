@@ -27,7 +27,6 @@ import java.util.concurrent.ExecutionException;
 
 public class UserSearchActivity extends ActionBarActivity {
 
-    Button userSearchButton;
     EditText userSearchInput;
     String PrefFileName = "data";
     ListView user_list;
@@ -37,7 +36,6 @@ public class UserSearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_search);
-        userSearchButton = (Button) findViewById(R.id.user_search_button);
         userSearchInput = (EditText) findViewById(R.id.user_search_edittext);
         user_list = (ListView) findViewById(R.id.user_search_list);
 
@@ -98,17 +96,6 @@ public class UserSearchActivity extends ActionBarActivity {
 
             }
         });
-
-
-        userSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-
     }
 
 
