@@ -33,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
-    Button SearchUsersButton; //temp button, csak tesztelésre
 
 
     @Override
@@ -42,8 +41,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
-        SearchUsersButton = (Button) findViewById(R.id.UserSearchtestButton);
 
+        Button SearchUsersButton; //temp button, csak tesztelésre
+        SearchUsersButton = (Button) findViewById(R.id.UserSearchtestButton);
         SearchUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,11 +56,11 @@ public class MainActivity extends ActionBarActivity {
 
         newProjectButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
-                                                public void onClick(View arg0) {
+                                                public void onClick(View v) {
                                                     final Dialog dialog = new Dialog(MainActivity.this);
                                                     dialog.setTitle("New Project");
                                                     dialog.setContentView(R.layout.new_project_dialog);
-                                                     dialog.show();
+                                                    dialog.show();
 
                                                     Button newProjectButtonCreate= (Button)dialog.findViewById(R.id.newProjectCreate);
                                                     Button newProjectButtonCancel= (Button)dialog.findViewById(R.id.newProjectCancel);
@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity {
                                                     newProjectButtonCreate.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
-                                                            //Project létrehozásaaaaa
+                                                            //Project létrehozása
                                                             dialog.dismiss();
                                                         }
                                                     });
@@ -104,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
                 projectList.setAdapter(projectAdapter);
         }
         catch (JSONException e) {
-            //Ha nincs project nem lehet array-é alakítani ezért itt elkapjuk, tudjuk hogy nincs.
+            //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
             Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
         }
         catch (Exception e)
