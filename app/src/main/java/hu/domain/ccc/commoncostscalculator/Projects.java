@@ -10,10 +10,15 @@ public class Projects {
     private Date startDate;
     private String description;
 
-    public Projects(String name, Date startDate, String description) {
+
+
+    private int id;
+
+    public Projects(String name, Date startDate, String description, int id) {
         this.name = name;
         this.startDate = startDate;
         this.description = description;
+        this.id = id;
     }
 
     public String getName() {
@@ -28,5 +33,7 @@ public class Projects {
         return description;
     }
 
-
+    public int getId() {
+        return id;
+    }
 }

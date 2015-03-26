@@ -83,14 +83,16 @@ public class MainActivity extends ActionBarActivity {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject temp = response.getJSONObject(i);
                     DateFormat format = new SimpleDateFormat("yyyy-LL-dd");
-                    projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description")));
+                    //Lista feltöltése projektekkel
+                    projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
                 }
-
+                //A listaView azonosítása és "feltöltése".
                 projectList = (ListView) findViewById(R.id.Project_list);
                 projectAdapter = new ProjectAdapter(projectItems);
                 projectList.setAdapter(projectAdapter);
         }
         catch (JSONException e) {
+            //Ha nincs project nem lehet array-é alakítani ezért itt elkapjuk, tudjuk hogy nincs.
             Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
         }
         catch (Exception e)
