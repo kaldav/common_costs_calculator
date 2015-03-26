@@ -3,6 +3,8 @@ package hu.domain.ccc.commoncostscalculator;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,13 +41,16 @@ public class UserSearchActivity extends ActionBarActivity {
         userSearchInput = (EditText) findViewById(R.id.user_search_edittext);
         user_list = (ListView) findViewById(R.id.user_search_list);
 
-
-
-
-        userSearchButton.setOnClickListener(new View.OnClickListener() {
+        userSearchInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String SearchString = userSearchInput.getText().toString();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String SearchString = s.toString();
+
                 if (!SearchString.equals(""))
                 {
                     final ArrayList<Users> usersItems = new ArrayList<Users>();
@@ -62,13 +67,14 @@ public class UserSearchActivity extends ActionBarActivity {
 
                     try {
                         //JSON feldolgozása
+
                         JSONArray response = new JSONArray(post.execute("http://ccc.elitemagyaritasok.info").get());
 
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject temp = response.getJSONObject(i);
 
-                           usersItems.add( new Users(temp.getString("username"), temp.getString("email")) );
-                    }
+                            usersItems.add( new Users(temp.getString("username"), temp.getString("email")) );
+                        }
 
                         adapter = new UsersAdapter(usersItems);
                         user_list.setAdapter(adapter);
@@ -85,6 +91,19 @@ public class UserSearchActivity extends ActionBarActivity {
 
 
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        userSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
