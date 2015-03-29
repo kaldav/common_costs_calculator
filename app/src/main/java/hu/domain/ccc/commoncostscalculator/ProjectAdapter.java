@@ -36,20 +36,36 @@ public class ProjectAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup parent) {
+        ViewHolder holder;
+
         if (view == null) {
             view = View.inflate(parent.getContext(),R.layout.listitem_project,null);
+            holder= new ViewHolder();
+            holder.dateTextView = (TextView) view.findViewById(R.id.projectStartDate);
+            holder.descTextView = (TextView) view.findViewById(R.id.projectDescription);
+            holder.nameTextView = (TextView) view.findViewById(R.id.projectName);
+            view.setTag(holder);
         }
+        else {
+            holder= (ViewHolder)view.getTag();
+        }
+
 
         Projects proji = items.get(i);
 
-        TextView nameTextView = (TextView) view.findViewById(R.id.projectName);
-        nameTextView.setText(proji.getName());
-        TextView descTextView = (TextView) view.findViewById(R.id.projectDescription);
-        descTextView.setText(proji.getDescription());
-        TextView dateTextView = (TextView) view.findViewById(R.id.projectStartDate);
-        dateTextView.setText(proji.getStartDate().toString());
+        holder.nameTextView.setText(proji.getName());
+        holder.descTextView.setText(proji.getDescription());
+        holder.dateTextView.setText(proji.getStartDate().toString());
 
 
         return view;
     }
+
+    static class ViewHolder {
+        TextView nameTextView;
+        TextView descTextView;
+        TextView dateTextView;
+    }
 }
+
+
