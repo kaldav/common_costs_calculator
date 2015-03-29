@@ -12,16 +12,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/user_search_hint"/>
-    <Button
-        android:id="@+id/user_search_button"
-        android:layout_below="@id/user_search_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/user_search_button"/>
 
     <ListView
         android:id="@+id/user_search_list"
-        android:layout_below="@id/user_search_button"
+        android:layout_below="@id/user_search_edittext"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
 
