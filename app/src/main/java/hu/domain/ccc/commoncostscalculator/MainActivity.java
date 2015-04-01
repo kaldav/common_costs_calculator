@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -53,7 +55,9 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-
+        SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
+        String session = settings.getString("session","");
+        //////////////////////////////////////////////NEW PROJECT DIALOGUS//////////////////////////////////////////////////////
         newProjectButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -75,14 +79,37 @@ public class MainActivity extends ActionBarActivity {
                                                         @Override
                                                         public void onClick(View v) {
                                                             //Project létrehozása
+                                                            SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
+                                                            String session = settings.getString("session","");
+                                                            HashMap<String, String> data = new HashMap<String, String>();
+                                                            data.put("action", "create_project");
+                                                            data.put("session", session);
+
+                                                            EditText textViewName = (EditText)dialog.findViewById(R.id.newProjectName);
+                                                            data.put("name", textViewName.getText().toString());
+
+                                                            EditText textViewDesc = (EditText)dialog.findViewById(R.id.newPRojectDescription);
+                                                            data.put("description", textViewDesc.getText().toString());
+
+                                                            ServerConnect post = new ServerConnect(data);
+                                                            try {
+                                                                //JSON feldolgozása
+                                                                JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
+                                                                //IDE ELÁGAZÁSKÉNT SIKERES SIKERTELEN HA SIKERES KÖVIKÉPERNYŐRE VIGYEN
+                                                                int id = response.getInt("project_id");
+                                                                Toast.makeText(MainActivity.this, Integer.toString(id) , Toast.LENGTH_LONG).show();
+                                                            }
+                                                            catch (Exception e)
+                                                            {
+                                                                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                                                            }
                                                             dialog.dismiss();
                                                         }
                                                     });
                                                 }
                                             });
+/////////////////////////////////////////////////////////////END OF NEW PROJECT DIALOGUS/////////////////////////////////////////////////////////////////////
 
-        SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
-        String session = settings.getString("session","");
 
         HashMap<String, String> data = new HashMap<String, String>();
         data.put("action", "get_projects");
@@ -106,6 +133,11 @@ public class MainActivity extends ActionBarActivity {
         catch (JSONException e) {
             //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
             Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
+            //Akkor is legyen ilyen ha nincs benne semmi
+            projectList = (ListView) findViewById(R.id.Project_list);
+            projectAdapter = new ProjectAdapter(projectItems);
+            projectList.setAdapter(projectAdapter);
+
         }
         catch (Exception e)
         {
