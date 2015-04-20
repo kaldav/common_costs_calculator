@@ -25,12 +25,14 @@ public class StartActivity extends ActionBarActivity {
     String username;
     String password;
     String PrefFileName = "data";
+    SharedPreferences settings;
+    String session;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
-        String session = settings.getString("session","");
+        settings = getSharedPreferences(PrefFileName, 0);
+        session = settings.getString("session","");
 
         ArrayList<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "is_logged_in"));

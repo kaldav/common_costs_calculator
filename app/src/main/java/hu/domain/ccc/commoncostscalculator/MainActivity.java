@@ -1,7 +1,5 @@
 package hu.domain.ccc.commoncostscalculator;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -10,11 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,9 +20,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,115 +31,70 @@ public class MainActivity extends ActionBarActivity {
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
+    SharedPreferences settings;
+    String session;
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        settings = getSharedPreferences(PrefFileName, 0);
+        session = settings.getString("session","");
+
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
 
         Button SearchUsersButton; //temp button, csak tesztelésre
         SearchUsersButton = (Button) findViewById(R.id.UserSearchtestButton);
         SearchUsersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,UserSearchActivity.class);
                 startActivity(i);
-
-
             }
         });
-        SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
-        String session = settings.getString("session","");
-        //////////////////////////////////////////////NEW PROJECT DIALOGUS//////////////////////////////////////////////////////
         newProjectButton.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    final Dialog dialog = new Dialog(MainActivity.this);
-                                                    dialog.setTitle("New Project");
-                                                    dialog.setContentView(R.layout.new_project_dialog);
-                                                    dialog.show();
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,NewProjectActivity.class);
+                startActivity(i);
+            }
+        });
 
-                                                    Button newProjectButtonCreate= (Button)dialog.findViewById(R.id.newProjectCreate);
-                                                    Button newProjectButtonCancel= (Button)dialog.findViewById(R.id.newProjectCancel);
+        ArrayList<NameValuePair> data = new ArrayList<>();
+        data.add(new BasicNameValuePair("action", "get_projects"));
+        data.add(new BasicNameValuePair("session", session));
+        Downloader connection = new Downloader(data);
+        connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+            @Override
+            public void onDownloadSuccess(String result) {
+                try {
+                    JSONArray response = new JSONArray(result);
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject temp = response.getJSONObject(i);
+                        DateFormat format = new SimpleDateFormat("yyyy-LL-dd");
+                        projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
+                    }
+                    projectList = (ListView) findViewById(R.id.Project_list);
+                    projectAdapter = new ProjectAdapter(projectItems);
+                    projectList.setAdapter(projectAdapter);
+                }catch (JSONException e) {
+                    //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
+                    Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
+                    //Akkor is legyen ilyen ha nincs benne semmi
+                    projectList = (ListView) findViewById(R.id.Project_list);
+                    projectAdapter = new ProjectAdapter(projectItems);
+                    projectList.setAdapter(projectAdapter);
 
-                                                    newProjectButtonCancel.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                                    newProjectButtonCreate.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            //Project létrehozása
-                                                            SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
-                                                            String session = settings.getString("session","");
-                                                            HashMap<String, String> data = new HashMap<String, String>();
-                                                            data.put("action", "create_project");
-                                                            data.put("session", session);
-
-                                                            EditText textViewName = (EditText)dialog.findViewById(R.id.newProjectName);
-                                                            data.put("name", textViewName.getText().toString());
-
-                                                            EditText textViewDesc = (EditText)dialog.findViewById(R.id.newPRojectDescription);
-                                                            data.put("description", textViewDesc.getText().toString());
-
-                                                            ServerConnect post = new ServerConnect(data);
-                                                            try {
-                                                                //JSON feldolgozása
-                                                                JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
-                                                                //IDE ELÁGAZÁSKÉNT SIKERES SIKERTELEN HA SIKERES KÖVIKÉPERNYŐRE VIGYEN
-                                                                int id = response.getInt("project_id");
-                                                                Toast.makeText(MainActivity.this, Integer.toString(id) , Toast.LENGTH_LONG).show();
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                                            }
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                                }
-                                            });
-/////////////////////////////////////////////////////////////END OF NEW PROJECT DIALOGUS/////////////////////////////////////////////////////////////////////
-
-
-        HashMap<String, String> data = new HashMap<String, String>();
-        data.put("action", "get_projects");
-        data.put("session", session);
-        ServerConnect post = new ServerConnect(data);
-        try {
-            //JSON feldolgozása
-            JSONArray response = new JSONArray(post.execute("http://ccc.elitemagyaritasok.info").get());
-
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject temp = response.getJSONObject(i);
-                    DateFormat format = new SimpleDateFormat("yyyy-LL-dd");
-                    //Lista feltöltése projektekkel
-                    projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
                 }
-                //A listaView azonosítása és "feltöltése".
-                projectList = (ListView) findViewById(R.id.Project_list);
-                projectAdapter = new ProjectAdapter(projectItems);
-                projectList.setAdapter(projectAdapter);
-        }
-        catch (JSONException e) {
-            //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
-            Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
-            //Akkor is legyen ilyen ha nincs benne semmi
-            projectList = (ListView) findViewById(R.id.Project_list);
-            projectAdapter = new ProjectAdapter(projectItems);
-            projectList.setAdapter(projectAdapter);
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
 
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-        }
-
+            @Override
+            public void onDownloadFailed(String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+        connection.start();
 
     }
 
@@ -165,17 +116,13 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.logoutBTN) {
             //session törlése szerver
-            HashMap<String, String> data = new HashMap<String, String>();
-            data.put("action", "logout");
-            ServerConnect post = new ServerConnect(data);
-            try {
-                post.execute("http://ccc.elitemagyaritasok.info");
-            } catch (Exception e) {
-                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-            }
+            ArrayList<NameValuePair> data = new ArrayList<>();
+            data.add(new BasicNameValuePair("action", "logout"));
+            data.add(new BasicNameValuePair("session", session));
+            Downloader connection = new Downloader(data);
+            connection.start();
 
             //session törlése kliens
-            SharedPreferences settings = getSharedPreferences(PrefFileName, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("session", "");
             editor.commit();
