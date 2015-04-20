@@ -14,6 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Projekt neve" />
+    <Button
+        android:id="@+id/newProjectCreate"
+        android:text="Projekt létrehozása"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
     <EditText
         android:id="@+id/newPRojectDescription"
         android:layout_width="match_parent"
@@ -21,22 +27,16 @@
         android:lines="3"
         android:layout_below="@+id/newProjectName"
         android:hint="Leírás"/>
+    <Button
+        android:id="@+id/addUser"
+        android:text="Résztvevők hozzáadása"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/newProjectCreate"/>
     <ListView
         android:id="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_below="@id/newPRojectDescription"
         android:layout_height="wrap_content"
-        android:layout_above="@id/addUser"/>
-    <Button
-        android:id="@+id/addUser"
-        android:text="Résztvevők hozzáadása"
-        android:layout_width="match_parent"
-        android:layout_above="@id/newProjectCreate"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/newProjectCreate"
-        android:text="Projekt létrehozása"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_above="@id/addUser"></ListView>
 </RelativeLayout>
