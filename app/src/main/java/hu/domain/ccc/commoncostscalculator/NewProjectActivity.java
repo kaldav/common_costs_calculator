@@ -52,7 +52,7 @@ public class NewProjectActivity extends ActionBarActivity{
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(NewProjectActivity.this);
                 dialog.setContentView(R.layout.add_user_dialog);
-                dialog.setTitle("Résztvevők hozzáadása");
+                dialog.setTitle("Felhasználók keresése");
                 userSearchInput = (EditText) dialog.findViewById(R.id.user_search_edittext);
                 user_list = (ListView) dialog.findViewById(R.id.user_search_list);
                 userSearchInput.addTextChangedListener(new TextWatcher() {
