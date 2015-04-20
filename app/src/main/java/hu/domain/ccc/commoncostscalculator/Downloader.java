@@ -4,17 +4,12 @@ import android.os.Handler;
 import android.os.Looper;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -44,7 +39,6 @@ public class Downloader extends Thread {
             HttpResponse response = client.execute(post);
 
             if (response.getStatusLine().getStatusCode()==200) {
-                JSONObject json = new JSONObject();
                 resultByte = EntityUtils.toByteArray(response.getEntity());
                 result = new String(resultByte, "UTF-8");
                 postDownloadSuccess(result);
@@ -53,16 +47,9 @@ public class Downloader extends Thread {
                 postDownloadFailed(response.getStatusLine().getReasonPhrase());
             }
 
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             postDownloadFailed(e.getLocalizedMessage());
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -82,6 +69,7 @@ public class Downloader extends Thread {
             @Override
             public void run() {
                 if (onConnectionListener != null){
+                    //onConnectionListener.onDownloadFailed("Sikertelen kapcsolódás, ellenőrizd az internetkapcsolatot!");
                     onConnectionListener.onDownloadFailed(message);
                 }
             }

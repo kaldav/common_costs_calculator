@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class RegisterActivity extends ActionBarActivity {
 
@@ -45,31 +48,39 @@ public class RegisterActivity extends ActionBarActivity {
                     Toast.makeText(RegisterActivity.this,getString(R.string.passwords_doesnt_match),Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    HashMap<String, String> data = new HashMap<String, String>();
-                    data.put("action", "registration");
-                    data.put("username", username);
-                    data.put("password", Crypto.md5(password));
-                    data.put("email", email);
-                    ServerConnect post = new ServerConnect(data);
-                    try {
-                        //JSON feldolgozása
-                        JSONObject response = new JSONObject(post.execute("http://ccc.elitemagyaritasok.info").get());
-                        int ret = response.getInt("user_id");
-                        if (ret>0) {
-                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                        else if (ret==-1 || ret==-2){
-                            Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_SHORT).show();
+                    ArrayList<NameValuePair> data = new ArrayList<>();
+                    data.add(new BasicNameValuePair("action", "registration"));
+                    data.add(new BasicNameValuePair("username", username));
+                    data.add(new BasicNameValuePair("password", Crypto.md5(password)));
+                    data.add(new BasicNameValuePair("email", email));
+                    Downloader connection = new Downloader(data);
+                    connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                        @Override
+                        public void onDownloadSuccess(String result) {
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                int ret = response.getInt("user_id");
+                                if (ret>0) {
+                                    Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                                else if (ret==-1 || ret==-2){
+                                    Toast.makeText(RegisterActivity.this, getString(R.string.wrong_username_or_email), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
 
-                    } catch (Exception e) {
-                        Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onDownloadFailed(String message) {
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    connection.start();
                 }
             }
         });
-
 
         //back to login
         toLogin = (Button) findViewById(R.id.linkToLogin);
