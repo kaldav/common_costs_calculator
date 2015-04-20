@@ -24,8 +24,6 @@ import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
-    Button logoutBTN;
-
     String PrefFileName = "data";
     List<Projects> projectItems = new ArrayList<>();
     ListView projectList;
@@ -43,14 +41,6 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
 
-        Button SearchUsersButton; //temp button, csak tesztelésre
-        SearchUsersButton = (Button) findViewById(R.id.UserSearchtestButton);
-        SearchUsersButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,UserSearchActivity.class);
-                startActivity(i);
-            }
-        });
         newProjectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,NewProjectActivity.class);
