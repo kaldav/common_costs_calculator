@@ -4,28 +4,20 @@
 
 
     <TextView
-        android:id="@+id/username_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Felhasználónév: "/>
-    <TextView
-        android:layout_toRightOf="@id/username_text"
         android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="18dp"/>
 
     <TextView
-        android:layout_below="@id/username_text"
-        android:id="@+id/email_text"
+        android:id="@id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email: "/>
-    <TextView
-        android:id="@id/email"
-        android:layout_toRightOf="@id/email_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username"/>
+        android:layout_toRightOf="@id/username"
+        android:layout_margin="5dp"
+        android:textSize="18dp"
+        />
 
 
 </RelativeLayout>

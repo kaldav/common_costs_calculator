@@ -6,7 +6,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="hu.domain.ccc.commoncostscalculator.NewProjectActivity"
     android:background="@color/bg_login">
 
@@ -14,35 +13,30 @@
         android:id="@+id/newProjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:minWidth="320dp"
-        android:hint="Project neve" />
+        android:hint="Projekt neve" />
     <EditText
         android:id="@+id/newPRojectDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:minWidth="320dp"
+        android:lines="3"
         android:layout_below="@+id/newProjectName"
         android:hint="Leírás"/>
-    <Button
-        android:id="@+id/addUser"
-        android:text="Résztvevő hozzáadása"
+    <ListView
+        android:id="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_below="@id/newPRojectDescription"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addUser"/>
+    <Button
+        android:id="@+id/addUser"
+        android:text="Résztvevők hozzáadása"
+        android:layout_width="match_parent"
+        android:layout_above="@id/newProjectCreate"
         android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/newProjectCreate"
         android:text="Projekt létrehozása"
-        android:layout_below="@id/addUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
