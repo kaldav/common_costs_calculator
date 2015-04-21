@@ -38,5 +38,5 @@
         android:layout_width="match_parent"
         android:layout_below="@id/newPRojectDescription"
         android:layout_height="wrap_content"
-        android:layout_above="@id/addUser"></ListView>
+        android:layout_above="@id/addUser"/>
 </RelativeLayout>
