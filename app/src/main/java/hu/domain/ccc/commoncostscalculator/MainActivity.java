@@ -65,6 +65,12 @@ public class MainActivity extends ActionBarActivity {
                     projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
+                    projectList.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                 }catch (JSONException e) {
                     //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
                     Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
@@ -72,7 +78,9 @@ public class MainActivity extends ActionBarActivity {
                     projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
-
+                    Intent i = new Intent(MainActivity.this,ProjectViewActivity.class);
+                    i.putExtra("project_id",1);
+                    startActivity(i);
                 }
                 catch (Exception e){
                     Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
