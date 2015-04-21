@@ -42,8 +42,8 @@ public class UsersAdapter extends BaseAdapter{
         TextView userNameTextView = (TextView)view.findViewById(R.id.username);
         userNameTextView.setText(user.getUserName());
 
-        TextView emailTextView = (TextView)view.findViewById(R.id.email);
-        emailTextView.setText(user.getEmail());
+        TextView emailTextView = (TextView)view.findViewById(R.id.name);
+        emailTextView.setText(user.getName());
 
         return view;
     }

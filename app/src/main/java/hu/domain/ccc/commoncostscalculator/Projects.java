@@ -9,9 +9,6 @@ public class Projects {
     private String name;
     private Date startDate;
     private String description;
-
-
-
     private int id;
 
     public Projects(String name, Date startDate, String description, int id) {

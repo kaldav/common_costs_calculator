@@ -31,7 +31,7 @@ public class ProjectAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return items.get(i).getId();
     }
 
     @Override

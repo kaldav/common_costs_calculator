@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -65,10 +66,12 @@ public class MainActivity extends ActionBarActivity {
                     projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
-                    projectList.setOnClickListener(new View.OnClickListener() {
+                    projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onClick(View v) {
-
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent i = new Intent(MainActivity.this,ProjectViewActivity.class);
+                            i.putExtra("project_id",(int)id);
+                            startActivity(i);
                         }
                     });
                 }catch (JSONException e) {
@@ -78,9 +81,6 @@ public class MainActivity extends ActionBarActivity {
                     projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
-                    Intent i = new Intent(MainActivity.this,ProjectViewActivity.class);
-                    i.putExtra("project_id",1);
-                    startActivity(i);
                 }
                 catch (Exception e){
                     Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();

@@ -20,9 +20,38 @@
             android:textColor="@color/input_register"
             android:textColorHint="@color/input_register_hint" />
 
+
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_below="@id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="@string/first_name"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:inputType="text"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_below="@id/first_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="@string/last_name"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:inputType="text"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
         <EditText
             android:id="@+id/email"
-            android:layout_below="@+id/username"
+            android:layout_below="@+id/last_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -68,7 +97,7 @@
             android:id="@+id/buttonRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="10dip"
             android:text="@string/register"
             android:textColor="@color/white" />
 

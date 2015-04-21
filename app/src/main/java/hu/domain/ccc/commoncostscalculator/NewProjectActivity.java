@@ -105,7 +105,7 @@ public class NewProjectActivity extends ActionBarActivity{
 
                     PSearchString = SearchString; //előző állapot felülírása
 
-                    final ArrayList<Users> usersItems = new ArrayList<Users>();
+                    final ArrayList<Users> usersItems = new ArrayList<>();
                     adapter = new UsersAdapter(usersItems);
                     user_list.setAdapter(adapter);
 
@@ -120,13 +120,13 @@ public class NewProjectActivity extends ActionBarActivity{
                                 JSONArray response = new JSONArray(result);
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject temp = response.getJSONObject(i);
-                                    usersItems.add( new Users(temp.getString("username"), temp.getString("email")) );
+                                    usersItems.add( new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")) );
                                 }
                                 adapter = new UsersAdapter(usersItems);
                                 user_list.setAdapter(adapter);
                             }catch (Exception e) {
                                 e.printStackTrace();
-                                usersItems.add(new Users("Nincs találat!", ""));
+                                usersItems.add(new Users("Nincs találat!", "", "",""));
                                 adapter = new UsersAdapter(usersItems);
                                 user_list.setAdapter(adapter);
                             }

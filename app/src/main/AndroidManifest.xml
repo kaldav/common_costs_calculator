@@ -27,10 +27,6 @@
             android:label="@string/active_projects" >
         </activity>
         <activity
-            android:name=".UserSearchActivity"
-            android:label="@string/title_activity_user_search" >
-        </activity>
-        <activity
             android:name=".NewProjectActivity"
             android:label="@string/title_activity_new_project" >
         </activity>

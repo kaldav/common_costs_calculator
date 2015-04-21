@@ -21,6 +21,8 @@ public class RegisterActivity extends ActionBarActivity {
     Button registerBTN;
     Button toLogin;
     String username;
+    String firstname;
+    String lastname;
     String email;
     String password;
     String passwordAgain;
@@ -36,12 +38,14 @@ public class RegisterActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 username = ((TextView)findViewById(R.id.username)).getText().toString();
+                firstname = ((TextView)findViewById(R.id.first_name)).getText().toString();
+                lastname = ((TextView)findViewById(R.id.last_name)).getText().toString();
                 email = ((TextView)findViewById(R.id.email)).getText().toString();
                 password = ((TextView)findViewById(R.id.password)).getText().toString();
                 passwordAgain = ((TextView)findViewById(R.id.password_again)).getText().toString();
 
                 //check values
-                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()){
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || firstname.isEmpty() || lastname.isEmpty()){
                     Toast.makeText(RegisterActivity.this,getString(R.string.missed_data),Toast.LENGTH_SHORT).show();
                 }
                 else if (!password.equals(passwordAgain)){
@@ -51,6 +55,8 @@ public class RegisterActivity extends ActionBarActivity {
                     ArrayList<NameValuePair> data = new ArrayList<>();
                     data.add(new BasicNameValuePair("action", "registration"));
                     data.add(new BasicNameValuePair("username", username));
+                    data.add(new BasicNameValuePair("firstname", firstname));
+                    data.add(new BasicNameValuePair("lastname", lastname));
                     data.add(new BasicNameValuePair("password", Crypto.md5(password)));
                     data.add(new BasicNameValuePair("email", email));
                     Downloader connection = new Downloader(data);
