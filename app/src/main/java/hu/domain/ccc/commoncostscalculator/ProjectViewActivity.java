@@ -39,7 +39,7 @@ public class ProjectViewActivity extends ActionBarActivity {
         Intent intent = getIntent();
         project_id = intent.getIntExtra("project_id",0);
         descriptionTV = (TextView)findViewById(R.id.projectDescription);
-        user_list = (ListView) findViewById(R.id.usersList);
+        user_list = (ListView)findViewById(R.id.usersList);
 
         ArrayList<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_project"));
@@ -66,8 +66,6 @@ public class ProjectViewActivity extends ActionBarActivity {
         connection.start();
 
         final ArrayList<Users> usersItems = new ArrayList<>();
-        usersAdapter = new UsersAdapter(usersItems);
-        user_list.setAdapter(usersAdapter);
 
         data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_project_users"));
@@ -82,24 +80,17 @@ public class ProjectViewActivity extends ActionBarActivity {
                         JSONObject temp = response.getJSONObject(i);
                         usersItems.add(new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
                     }
-                    usersAdapter = new UsersAdapter(usersItems);
-                    user_list.setAdapter(usersAdapter);
                 }catch (Exception e) {
                     usersItems.add(new Users("Nincs találat!", "","",""));
-                    usersAdapter = new UsersAdapter(usersItems);
-                    user_list.setAdapter(usersAdapter);
                 }
+                usersAdapter = new UsersAdapter(usersItems);
+                user_list.setAdapter(usersAdapter);
             }
             public void onDownloadFailed(String message) {
                 Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
         connection.start();
-
-
-
-
-
     }
 
 

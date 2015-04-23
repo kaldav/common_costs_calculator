@@ -7,13 +7,13 @@ import java.util.Date;
  */
 public class Projects {
     private String name;
-    private Date startDate;
+    private Date startTime;
     private String description;
     private int id;
 
-    public Projects(String name, Date startDate, String description, int id) {
+    public Projects(String name, Date startTime, String description, int id) {
         this.name = name;
-        this.startDate = startDate;
+        this.startTime = startTime;
         this.description = description;
         this.id = id;
     }
@@ -22,8 +22,8 @@ public class Projects {
         return name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartTime() {
+        return startTime;
     }
 
     public String getDescription() {

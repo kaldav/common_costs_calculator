@@ -5,18 +5,22 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:text=""/>
 
     <TextView
         android:id="@+id/name"
+        android:paddingLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/username"
         android:layout_margin="5dp"
         android:textSize="18dp"
+        android:text=""
         />
 
 

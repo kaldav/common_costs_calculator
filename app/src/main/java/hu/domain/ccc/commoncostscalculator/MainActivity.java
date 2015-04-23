@@ -22,16 +22,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class MainActivity extends ActionBarActivity {
     String PrefFileName = "data";
-    List<Projects> projectItems = new ArrayList<>();
+    List<Projects> projectItems;
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
     SharedPreferences settings;
     String session;
+    ArrayList<NameValuePair> data;
+    Downloader connection;
+
+    /* Called when the second activity's finished */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        loadProjects();
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
+        projectList = (ListView) findViewById(R.id.Project_list);
 
         newProjectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -48,30 +58,32 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+        loadProjects();
+    }
 
-        ArrayList<NameValuePair> data = new ArrayList<>();
+    public void loadProjects(){
+        data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_projects"));
         data.add(new BasicNameValuePair("session", session));
-        Downloader connection = new Downloader(data);
+
+        connection = new Downloader(data);
         connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
-            @Override
             public void onDownloadSuccess(String result) {
                 try {
+                    projectItems = new ArrayList<>();
                     JSONArray response = new JSONArray(result);
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject temp = response.getJSONObject(i);
-                        DateFormat format = new SimpleDateFormat("yyyy-LL-dd");
-                        projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_date")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
+                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+                        projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
                     }
-                    projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
                     projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent i = new Intent(MainActivity.this,ProjectViewActivity.class);
-                            i.putExtra("project_id",(int)id);
-                            startActivity(i);
+                            Intent in = new Intent(MainActivity.this,ProjectViewActivity.class);
+                            in.putExtra("project_id",(int)id);
+                            startActivity(in);
                         }
                     });
                 }catch (JSONException e) {
@@ -86,15 +98,13 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
-
-            @Override
             public void onDownloadFailed(String message) {
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
         connection.start();
-
     }
+
 
 
     @Override

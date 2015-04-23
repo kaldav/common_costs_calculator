@@ -55,7 +55,7 @@ public class ProjectAdapter extends BaseAdapter {
 
         holder.nameTextView.setText(proji.getName());
         holder.descTextView.setText(proji.getDescription());
-        holder.dateTextView.setText(proji.getStartDate().toString());
+        holder.dateTextView.setText(proji.getStartTime().toString());
 
 
         return view;

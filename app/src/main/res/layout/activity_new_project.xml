@@ -27,6 +27,14 @@
         android:lines="3"
         android:layout_below="@+id/newProjectName"
         android:hint="Leírás"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newPRojectDescription"
+        android:text="Résztvevők:"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
     <Button
         android:id="@+id/addUser"
         android:text="Résztvevők hozzáadása"
@@ -34,9 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/newProjectCreate"/>
     <ListView
-        android:id="@+id/usersList"
+        android:id="@+id/selected_user_list"
         android:layout_width="match_parent"
-        android:layout_below="@id/newPRojectDescription"
+        android:layout_below="@id/text"
         android:layout_height="wrap_content"
         android:layout_above="@id/addUser"/>
 </RelativeLayout>
