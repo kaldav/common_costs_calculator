@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class ProjectViewActivity extends ActionBarActivity {
     TextView descriptionTV;
     private UsersAdapter usersAdapter;
     ListView user_list;
+    Button addItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                 }catch (Exception e) {
                     usersItems.add(new Users("Nincs találat!", "","",""));
                 }
-                usersAdapter = new UsersAdapter(usersItems);
+                usersAdapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                 user_list.setAdapter(usersAdapter);
             }
             public void onDownloadFailed(String message) {
@@ -91,6 +93,19 @@ public class ProjectViewActivity extends ActionBarActivity {
             }
         });
         connection.start();
+
+
+
+        addItem = (Button) findViewById(R.id.addItem);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProjectViewActivity.this,AddItemActivity.class);
+
+                i.putExtra("users", usersItems );
+                startActivity(i);
+            }
+        });
     }
 
 

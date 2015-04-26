@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/bg_login"
+    tools:context="hu.domain.ccc.commoncostscalculator.AddItemActivity">
+
+   <EditText
+       android:id="@+id/elnevezes"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/megnevezes"/>
+
+    <EditText
+        android:id="@+id/tetel_osszeg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/elnevezes"
+        android:text="@string/tetel_osszeg_editext"/>
+
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tetel_osszeg"
+        android:text="Résztvevők:"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/itemAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/user_add_text"
+        />
+
+    <ListView
+        android:id="@+id/resztvevok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/itemAdd"
+        android:layout_below="@id/text"
+        />
+
+
+</RelativeLayout>

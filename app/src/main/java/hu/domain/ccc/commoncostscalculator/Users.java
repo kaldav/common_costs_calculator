@@ -1,9 +1,12 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Gergely on 2015.03.26..
  */
-public class Users {
+public class Users implements Parcelable{
 
     private String userName;
     private String email;
@@ -32,6 +35,18 @@ public class Users {
         this.name=firstname+" "+lastname;
     }
 
+    public Users(Parcel parcel)
+    {
+        String[] data = new String[4];
+        parcel.readStringArray(data);
+        this.userName = data[0];
+        this.email = data[1];
+        this.firstname= data[2];
+        this.lastname= data[3];
+        this.name= firstname+" "+lastname;
+
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -39,4 +54,32 @@ public class Users {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+          dest.writeStringArray(new String[] { this.userName,
+                                                this.email,
+                                                this.firstname,
+                                                this.lastname });
+    }
+
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
+
+
+        @Override
+        public Object createFromParcel(Parcel source) {
+            return new Users(source);
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new Users[size];
+        }
+    };
 }

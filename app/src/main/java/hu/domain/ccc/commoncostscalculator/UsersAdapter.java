@@ -13,9 +13,11 @@ import java.util.List;
 public class UsersAdapter extends BaseAdapter{
 
     private List<Users> items;
+    int layoutResource; // a lista elemeket leíró layout
 
-    public UsersAdapter(List<Users> items) {
+    public UsersAdapter(List<Users> items, int layoutResource) {
         this.items = items;
+        this.layoutResource = layoutResource;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class UsersAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View view, ViewGroup parent) {
        if(view == null) {
-           view = View.inflate(parent.getContext(),R.layout.listitem_users ,null);
+
+           view = View.inflate(parent.getContext(), layoutResource ,null);
        }
        Users user = items.get(position);
         TextView userNameTextView = (TextView)view.findViewById(R.id.username);

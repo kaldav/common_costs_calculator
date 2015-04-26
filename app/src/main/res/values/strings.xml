@@ -28,5 +28,12 @@
     <string name="participants">Aktív résztvevők:</string>
     <string name="first_name">Keresztnév</string>
     <string name="last_name">Vezetéknév</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="megnevezes">Elnevezés</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_add_text">Tétel hozzáadása</string>
+    <string name="tetel_osszeg_editext">Összeg</string>
 
 </resources>
