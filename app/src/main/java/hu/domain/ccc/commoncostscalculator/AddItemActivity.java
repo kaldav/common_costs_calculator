@@ -89,7 +89,7 @@ public class AddItemActivity extends ActionBarActivity {
                 setResult(RESULT_OK,i);
                 finish();
                  */
-                Intent i = new Intent(AddItemActivity.this,ProjectViewActivity.class);
+                Intent i = new Intent();
                 i.putExtra("users",users);
                 if (getParent() != null)
                     getParent().setResult(RESULT_OK,i);

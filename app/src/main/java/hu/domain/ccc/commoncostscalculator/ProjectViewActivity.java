@@ -104,16 +104,17 @@ public class ProjectViewActivity extends ActionBarActivity {
 
                 i.putExtra("users", usersItems );
                 startActivityForResult(i,0);
-                startActivity(i);
+
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
        ArrayList<Users> users = bundle.getParcelableArrayList("users");
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override
