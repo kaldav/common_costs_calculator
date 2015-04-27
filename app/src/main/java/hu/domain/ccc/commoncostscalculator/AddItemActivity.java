@@ -36,15 +36,20 @@ import android.content.SharedPreferences;
 
 public class AddItemActivity extends ActionBarActivity {
 
-    Button itemButton;
-
+    Button itemaddButton; // tétel hozzáadása gomb
     ListView user_list; // lista a projekt tagjainak megtekintéséhez
+    EditText elnevezesET; // tétel neve
+    EditText osszegET; // tétel összege
+    EditText leirasET; // tétel leírása
+    EditText darabszamET; // darabszám
+
 
     String session;
     String PrefFileName = "data";
     SharedPreferences settings;
+    String project_id;
 
-    Button itemaddButton; // tétel hozzáadása gomb
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +58,17 @@ public class AddItemActivity extends ActionBarActivity {
         settings = getSharedPreferences(PrefFileName, 0);
         session = settings.getString("session", "");
 
+
+
         itemaddButton = (Button) findViewById(R.id.itemAdd);
+        elnevezesET = (EditText) findViewById(R.id.elnevezes);
+        osszegET = (EditText) findViewById(R.id.tetel_osszeg);
+        leirasET = (EditText) findViewById(R.id.tetel_leiras);
+        darabszamET = (EditText) findViewById(R.id.tetel_darabszam);
 
         Bundle b = getIntent().getExtras();
         ArrayList<Users> users = b.getParcelableArrayList("users");
+        project_id = b.getString("projekt_id");
         final UsersAdapter adapter = new UsersAdapter(users,R.layout.listitem_item);
         user_list = (ListView) findViewById(R.id.resztvevok);
         user_list.setAdapter(adapter);
@@ -82,13 +94,48 @@ public class AddItemActivity extends ActionBarActivity {
 
                 }
 
-                /*
-                //Látom visszaakarsz térni eredményel tonti,nézd meg így
-                Intent i = new Intent();  //<- tehát itt nem kell activity ket bevonni a dologba
-                i.putExtra("users",users);
-                setResult(RESULT_OK,i);
-                finish();
-                 */
+                String tetel_elnevezes = elnevezesET.getText().toString().trim();
+                String tetel_leiras = leirasET.getText().toString().trim();
+                String tetel_osszeg = osszegET.getText().toString().trim();
+                String tetel_darabszam = darabszamET.getText().toString().trim();
+
+
+                if(tetel_elnevezes.isEmpty() || tetel_osszeg.isEmpty() || users.size() == 0)
+                {
+                    Toast.makeText(AddItemActivity.this, "Ez így kevés lesz...",Toast.LENGTH_SHORT);
+                    return; // valami nincs kitöltve, nem csinálunk semmit
+                }
+
+                ArrayList<NameValuePair> data = new ArrayList<>();
+                data.add(new BasicNameValuePair("action", "add_item"));
+                data.add(new BasicNameValuePair("session", session));
+                data.add(new BasicNameValuePair("project_id", project_id));
+                data.add(new BasicNameValuePair("name", tetel_elnevezes));
+                data.add(new BasicNameValuePair("description",tetel_leiras ));
+                data.add(new BasicNameValuePair("amount",tetel_darabszam ));
+               // data.add(new BasicNameValuePair("tömb",new ArrayList<>() ));
+               /* Downloader connection = new Downloader(data);
+                connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                    public void onDownloadSuccess(String result) {
+                        try {
+                            JSONArray response = new JSONArray(result);
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject temp = response.getJSONObject(i);
+                                usersItems.add(new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
+                            }
+                        }catch (Exception e) {
+                            usersItems.add(new Users("Nincs találat!", "","",""));
+                        }
+                        usersAdapter = new UsersAdapter(usersItems, R.layout.listitem_users);
+                        user_list.setAdapter(usersAdapter);
+                    }
+                    public void onDownloadFailed(String message) {
+                        Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                connection.start();*/
+
+
                 Intent i = new Intent();
                 i.putExtra("users",users);
                 if (getParent() != null)

@@ -1,8 +1,16 @@
-<RelativeLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -19,23 +27,38 @@
         android:id="@+id/participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/projectDescription"
         android:textSize="20dp"
         android:text="@string/participants"/>
+
+
+
+
+    <ListView
+        android:id="@+id/usersList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tetelekText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Tételek:"
+        />
+    <ListView
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
 
     <Button
         android:id="@+id/addItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:text="Új tétel"/>
 
-    <ListView
-        android:id="@+id/usersList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/participants"
-        android:layout_above="@id/addItem"/>
 
+</LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

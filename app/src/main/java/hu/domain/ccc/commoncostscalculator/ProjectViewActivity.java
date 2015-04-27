@@ -80,10 +80,10 @@ public class ProjectViewActivity extends ActionBarActivity {
                     JSONArray response = new JSONArray(result);
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject temp = response.getJSONObject(i);
-                        usersItems.add(new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
+                        usersItems.add(new Users(temp.getString("id"),temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
                     }
                 }catch (Exception e) {
-                    usersItems.add(new Users("Nincs találat!", "","",""));
+                    usersItems.add(new Users("","Nincs találat!", "","","")); // erre kéne szebb megoldás
                 }
                 usersAdapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                 user_list.setAdapter(usersAdapter);
@@ -103,6 +103,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                 Intent i = new Intent(ProjectViewActivity.this,AddItemActivity.class);
 
                 i.putExtra("users", usersItems );
+                i.putExtra("projekt_id",String.valueOf(project_id));
                 startActivityForResult(i,0);
 
             }
@@ -114,6 +115,8 @@ public class ProjectViewActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
        ArrayList<Users> users = bundle.getParcelableArrayList("users");
+
+
 
     }
 

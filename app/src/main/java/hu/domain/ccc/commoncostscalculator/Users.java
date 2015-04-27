@@ -13,6 +13,7 @@ public class Users implements Parcelable{
     private String firstname;
     private String lastname;
     private boolean checked;
+    private String id;
 
     public String getName() {
         return name;
@@ -28,13 +29,15 @@ public class Users implements Parcelable{
 
     private String name;
 
-    public Users(String userName, String email, String firstname, String lastname) {
+    public Users(String id, String userName, String email, String firstname, String lastname) {
+        this.id = id;
         this.userName = userName;
         this.email = email;
         this.firstname=firstname;
         this.lastname=lastname;
         this.name=firstname+" "+lastname;
         this.checked = false;
+
     }
 
     public boolean isChecked() {
@@ -42,17 +45,19 @@ public class Users implements Parcelable{
     }
     //The Cake is a Lie...Tonté hazudott, PairProgramingForEver
     public void switchChecked() {
+        //roland meleg de az ő ötlete volt!!!44!!
         this.checked = !this.checked;
     }
 
     public Users(Parcel parcel)
     {
-        String[] data = new String[4];
+        String[] data = new String[5];
         parcel.readStringArray(data);
-        this.userName = data[0];
-        this.email = data[1];
-        this.firstname= data[2];
-        this.lastname= data[3];
+        this.id = data[0];
+        this.userName = data[1];
+        this.email = data[2];
+        this.firstname= data[3];
+        this.lastname= data[4];
         this.name= firstname+" "+lastname;
 
     }
