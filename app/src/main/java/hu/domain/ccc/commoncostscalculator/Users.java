@@ -12,6 +12,7 @@ public class Users implements Parcelable{
     private String email;
     private String firstname;
     private String lastname;
+    private boolean checked;
 
     public String getName() {
         return name;
@@ -33,6 +34,15 @@ public class Users implements Parcelable{
         this.firstname=firstname;
         this.lastname=lastname;
         this.name=firstname+" "+lastname;
+        this.checked = false;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void switchChecked() {
+        this.checked = !this.checked;
     }
 
     public Users(Parcel parcel)

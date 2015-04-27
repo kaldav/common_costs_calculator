@@ -3,17 +3,21 @@ package hu.domain.ccc.commoncostscalculator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.provider.Contacts;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -53,14 +57,37 @@ public class AddItemActivity extends ActionBarActivity {
 
         Bundle b = getIntent().getExtras();
         ArrayList<Users> users = b.getParcelableArrayList("users");
+        final UsersAdapter adapter = new UsersAdapter(users,R.layout.listitem_item);
         user_list = (ListView) findViewById(R.id.resztvevok);
-        user_list.setAdapter(new UsersAdapter(users,R.layout.listitem_item));
+        user_list.setAdapter(adapter);
+
+
+
+        user_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
 
         itemaddButton = (Button) findViewById(R.id.itemAdd);
+
         itemaddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                ArrayList<Users> users = new ArrayList<Users>();
+
+
+                for (int i = 0; i < adapter.getCount();i++)
+                {
+                    Users user = (Users)adapter.getItem(i);
+                    if(user.isChecked())
+                        users.add(user);
+
+                }
+                Intent i = new Intent(AddItemActivity.this,ProjectViewActivity.class);
+                i.putExtra("users",users);
+                if (getParent() != null)
+                    getParent().setResult(RESULT_OK,i);
+                else
+                    setResult(RESULT_OK,i);
+                finish();
             }
         });
 

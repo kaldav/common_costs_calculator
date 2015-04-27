@@ -103,11 +103,18 @@ public class ProjectViewActivity extends ActionBarActivity {
                 Intent i = new Intent(ProjectViewActivity.this,AddItemActivity.class);
 
                 i.putExtra("users", usersItems );
+                startActivityForResult(i,0);
                 startActivity(i);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bundle bundle = data.getExtras();
+       ArrayList<Users> users = bundle.getParcelableArrayList("users");
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
