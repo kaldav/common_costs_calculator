@@ -40,7 +40,7 @@ public class Users implements Parcelable{
     public boolean isChecked() {
         return checked;
     }
-
+    //The Cake is a Lie...Tonté hazudott, PairProgramingForEver
     public void switchChecked() {
         this.checked = !this.checked;
     }
