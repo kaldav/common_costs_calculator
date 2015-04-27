@@ -81,6 +81,14 @@ public class AddItemActivity extends ActionBarActivity {
                         users.add(user);
 
                 }
+
+                /*
+                //Látom visszaakarsz térni eredményel tonti,nézd meg így
+                Intent i = new Intent();  //<- tehát itt nem kell activity ket bevonni a dologba
+                i.putExtra("users",users);
+                setResult(RESULT_OK,i);
+                finish();
+                 */
                 Intent i = new Intent(AddItemActivity.this,ProjectViewActivity.class);
                 i.putExtra("users",users);
                 if (getParent() != null)
