@@ -39,7 +39,7 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (view == null) {
-            view = View.inflate(parent.getContext(),R.layout.listitem_project_connect_refus,null);
+            view = View.inflate(parent.getContext(),R.layout.listitem_project_connect_refuse,null);
             holder= new ViewHolder();
             holder.descTextView = (TextView) view.findViewById(R.id.projectDescription);
             holder.nameTextView = (TextView) view.findViewById(R.id.projectName);
