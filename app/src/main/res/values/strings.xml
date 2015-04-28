@@ -36,5 +36,6 @@
     <string name="user_add_text">Tétel hozzáadása</string>
     <string name="tetel_osszeg_editext">Összeg</string>
     <string name="title_activity_project_connect_refused">ProjectConnectRefusedActivity</string>
+    <string name="elutasitButton">Elutasít</string>
 
 </resources>

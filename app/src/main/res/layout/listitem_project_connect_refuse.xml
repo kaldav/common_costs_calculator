@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/csatlakozasButton"
-        android:text="Elutasít"
+        android:text="@string/elutasitButton"
         android:textSize="10dp"
         />
 
