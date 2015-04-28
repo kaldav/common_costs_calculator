@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
+    Button elfogadasraVaroProjectekButton;
     SharedPreferences settings;
     String session;
     ArrayList<NameValuePair> data;
@@ -50,6 +51,18 @@ public class MainActivity extends ActionBarActivity {
 
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
+        elfogadasraVaroProjectekButton = (Button) findViewById(R.id.elfogadasraVaroProjectButton);
+        elfogadasraVaroProjectekButton.setOnClickListener(
+                new View.OnClickListener() {
+                       @Override
+                          public void onClick(View v) {
+                           Intent i = new Intent(MainActivity.this,ProjectConnectRefusedActivity.class);
+                           startActivity(i);
+                             }
+                        });
+
+
+
         projectList = (ListView) findViewById(R.id.Project_list);
 
         newProjectButton.setOnClickListener(new View.OnClickListener() {
