@@ -38,6 +38,10 @@
             android:name=".AddItemActivity"
             android:label="@string/title_activity_add_item" >
         </activity>
+        <activity
+            android:name=".ProjectConnectRefusedActivity"
+            android:label="@string/title_activity_project_connect_refused" >
+        </activity>
     </application>
 
 </manifest>

@@ -18,6 +18,13 @@ public class Projects {
         this.id = id;
     }
 
+    public Projects(String name, String description, int id) {
+        this.name = name;
+        //this.startTime = startTime;
+        this.description = description;
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
