@@ -1,36 +1,19 @@
 package hu.domain.ccc.commoncostscalculator;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
-import android.provider.Contacts;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.SparseBooleanArray;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import android.content.SharedPreferences;
 
 
@@ -69,7 +52,7 @@ public class AddItemActivity extends ActionBarActivity {
         Bundle b = getIntent().getExtras();
         ArrayList<Users> projektUsers = b.getParcelableArrayList("users");
         project_id = b.getString("projekt_id");
-        final UsersAdapter adapter = new UsersAdapter(projektUsers,R.layout.listitem_item);
+        final UsersAdapter adapter = new UsersAdapter(projektUsers,R.layout.listitem_item_add_user);
         user_list = (ListView) findViewById(R.id.resztvevok);
         user_list.setAdapter(adapter);
 
@@ -100,9 +83,9 @@ public class AddItemActivity extends ActionBarActivity {
                 final String tetel_darabszam = darabszamET.getText().toString().trim();
 
 
-                if(tetel_elnevezes.isEmpty() || tetel_osszeg.isEmpty() || users.size() == 0)
+                if(tetel_elnevezes.isEmpty() || tetel_leiras.isEmpty() || tetel_darabszam.isEmpty() || tetel_osszeg.isEmpty() || users.size() == 0)
                 {
-                    Toast.makeText(AddItemActivity.this, "Ez így kevés lesz...",Toast.LENGTH_SHORT);
+                    Toast.makeText(AddItemActivity.this, "Ez így kevés lesz...",Toast.LENGTH_SHORT).show();
                     return; // valami nincs kitöltve, nem csinálunk semmit
                 }
 

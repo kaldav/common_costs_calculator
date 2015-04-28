@@ -4,10 +4,8 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +60,7 @@ public class UsersAdapter extends BaseAdapter{
         TextView emailTextView = (TextView)view.findViewById(R.id.name);
         emailTextView.setText(user.getName());
 
-        if(layoutResource == R.layout.listitem_item)
+        if(layoutResource == R.layout.listitem_item_add_user)
         {
 
             view.setOnClickListener(new View.OnClickListener() {

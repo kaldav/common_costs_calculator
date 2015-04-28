@@ -18,6 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -31,7 +32,8 @@ public class ProjectViewActivity extends ActionBarActivity {
     private UsersAdapter usersAdapter;
     ListView user_list;
     Button addItem;
-
+    ListView itemList;
+    ArrayList<Items> items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,9 @@ public class ProjectViewActivity extends ActionBarActivity {
         project_id = intent.getIntExtra("project_id",0);
         descriptionTV = (TextView)findViewById(R.id.projectDescription);
         user_list = (ListView)findViewById(R.id.usersList);
+        itemList = (ListView) findViewById(R.id.items);
+
+        items = new ArrayList<Items>();
 
         ArrayList<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_project"));
@@ -115,8 +120,9 @@ public class ProjectViewActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
        Items item = bundle.getParcelable("item");
+        items.add(item);
 
-
+        itemList.setAdapter(new ItemsAdapter(items));
 
     }
 

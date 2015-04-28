@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_login">
 
     <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:id="@+id/tetel_elnevezese"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text=""/>
-
+        />
     <TextView
-        android:id="@+id/name"
-        android:paddingLeft="15dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/tetel_osszege"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/username"
-        android:layout_margin="5dp"
-        android:textSize="18dp"
-        android:text=""
+        android:gravity="end"
+
         />
 
-
-
-</RelativeLayout>
+</LinearLayout>
