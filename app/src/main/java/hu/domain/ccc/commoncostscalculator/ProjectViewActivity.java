@@ -114,7 +114,7 @@ public class ProjectViewActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
-       ArrayList<Users> users = bundle.getParcelableArrayList("users");
+       Items item = bundle.getParcelable("item");
 
 
 

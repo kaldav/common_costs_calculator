@@ -210,11 +210,11 @@ public class NewProjectActivity extends ActionBarActivity{
                                 JSONArray response = new JSONArray(result);
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject temp = response.getJSONObject(i);
-                                    usersItems.add( new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")) );
+                                    usersItems.add( new Users(temp.getString("id"),temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")) );
                                 }
                             }catch (Exception e) {
                                 e.printStackTrace();
-                                usersItems.add(new Users("Nincs találat!", "", "", ""));
+                                usersItems.add(new Users("","Nincs találat!", "", "", ""));
                             }
                             adapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                             user_list.setAdapter(adapter);

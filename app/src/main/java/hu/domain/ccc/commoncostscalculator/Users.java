@@ -45,7 +45,7 @@ public class Users implements Parcelable{
     }
     //The Cake is a Lie...Tonté hazudott, PairProgramingForEver
     public void switchChecked() {
-        //roland meleg de az ő ötlete volt!!!44!!
+
         this.checked = !this.checked;
     }
 
@@ -59,7 +59,12 @@ public class Users implements Parcelable{
         this.firstname= data[3];
         this.lastname= data[4];
         this.name= firstname+" "+lastname;
+        this.checked = false;
 
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getUserName() {
@@ -77,7 +82,8 @@ public class Users implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-          dest.writeStringArray(new String[] { this.userName,
+          dest.writeStringArray(new String[] {  this.id,
+                                                this.userName,
                                                 this.email,
                                                 this.firstname,
                                                 this.lastname });
@@ -97,4 +103,6 @@ public class Users implements Parcelable{
             return new Users[size];
         }
     };
+
+
 }

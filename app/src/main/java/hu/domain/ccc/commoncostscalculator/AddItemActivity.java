@@ -67,9 +67,9 @@ public class AddItemActivity extends ActionBarActivity {
         darabszamET = (EditText) findViewById(R.id.tetel_darabszam);
 
         Bundle b = getIntent().getExtras();
-        ArrayList<Users> users = b.getParcelableArrayList("users");
+        ArrayList<Users> projektUsers = b.getParcelableArrayList("users");
         project_id = b.getString("projekt_id");
-        final UsersAdapter adapter = new UsersAdapter(users,R.layout.listitem_item);
+        final UsersAdapter adapter = new UsersAdapter(projektUsers,R.layout.listitem_item);
         user_list = (ListView) findViewById(R.id.resztvevok);
         user_list.setAdapter(adapter);
 
@@ -83,7 +83,7 @@ public class AddItemActivity extends ActionBarActivity {
         itemaddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Users> users = new ArrayList<Users>();
+               final  ArrayList<Users> users = new ArrayList<Users>();
 
 
                 for (int i = 0; i < adapter.getCount();i++)
@@ -94,10 +94,10 @@ public class AddItemActivity extends ActionBarActivity {
 
                 }
 
-                String tetel_elnevezes = elnevezesET.getText().toString().trim();
-                String tetel_leiras = leirasET.getText().toString().trim();
-                String tetel_osszeg = osszegET.getText().toString().trim();
-                String tetel_darabszam = darabszamET.getText().toString().trim();
+                final String tetel_elnevezes = elnevezesET.getText().toString().trim();
+                final String tetel_leiras = leirasET.getText().toString().trim();
+                final String tetel_osszeg = osszegET.getText().toString().trim();
+                final String tetel_darabszam = darabszamET.getText().toString().trim();
 
 
                 if(tetel_elnevezes.isEmpty() || tetel_osszeg.isEmpty() || users.size() == 0)
@@ -113,36 +113,50 @@ public class AddItemActivity extends ActionBarActivity {
                 data.add(new BasicNameValuePair("name", tetel_elnevezes));
                 data.add(new BasicNameValuePair("description",tetel_leiras ));
                 data.add(new BasicNameValuePair("amount",tetel_darabszam ));
-               // data.add(new BasicNameValuePair("tömb",new ArrayList<>() ));
-               /* Downloader connection = new Downloader(data);
+
+                for (int i = 0; i < users.size();i++)
+                {
+                    data.add(new BasicNameValuePair("user_id[]",users.get(i).getId()));
+                    data.add(new BasicNameValuePair("percentage[]",Integer.toString(100 / users.size())));
+                }
+
+
+                /*Downloader connection = new Downloader(data);
                 connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
                     public void onDownloadSuccess(String result) {
                         try {
                             JSONArray response = new JSONArray(result);
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject temp = response.getJSONObject(i);
-                                usersItems.add(new Users(temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
-                            }
+
+                            Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
+                            Intent i = new Intent();
+                            i.putExtra("users",users);
+                            if (getParent() != null)
+                                getParent().setResult(RESULT_OK,i);
+                            else
+                                setResult(RESULT_OK,i);
+                            finish();
+
                         }catch (Exception e) {
-                            usersItems.add(new Users("Nincs találat!", "","",""));
+                            Toast.makeText(AddItemActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        usersAdapter = new UsersAdapter(usersItems, R.layout.listitem_users);
-                        user_list.setAdapter(usersAdapter);
+
                     }
                     public void onDownloadFailed(String message) {
-                        Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddItemActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
                 connection.start();*/
 
-
+                Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
                 Intent i = new Intent();
-                i.putExtra("users",users);
+                i.putExtra("item",item);
                 if (getParent() != null)
                     getParent().setResult(RESULT_OK,i);
                 else
                     setResult(RESULT_OK,i);
                 finish();
+
+
             }
         });
 
