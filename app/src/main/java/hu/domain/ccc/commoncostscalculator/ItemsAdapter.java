@@ -44,6 +44,7 @@ public class ItemsAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.tetel_elnevezes = (TextView) convertView.findViewById(R.id.tetel_elnevezese);
             holder.tetel_osszeg = (TextView) convertView.findViewById(R.id.tetel_osszege);
+            holder.tetel_leiras = (TextView) convertView.findViewById(R.id.tetel_leiras);
             convertView.setTag(holder);
         }
         else
@@ -55,6 +56,7 @@ public class ItemsAdapter extends BaseAdapter {
 
         holder.tetel_elnevezes.setText(item.name);
         holder.tetel_osszeg.setText(Integer.toString(item.sum));
+        holder.tetel_leiras.setText(item.getDescription());
 
 
 
@@ -64,5 +66,6 @@ public class ItemsAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView tetel_elnevezes;
         TextView tetel_osszeg;
+        TextView tetel_leiras;
     }
 }

@@ -11,14 +11,16 @@
        android:id="@+id/elnevezes"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:hint="@string/megnevezes"/>
+       android:hint="@string/megnevezes"
+       android:text="sajtos tétel"/>
 
     <EditText
         android:id="@+id/tetel_leiras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/elnevezes"
-        android:hint="Leírás"/>
+        android:hint="Leírás"
+        android:text="ezg egy sajtos tétel"/>
 
     <LinearLayout
         android:id="@+id/linear"
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tetel_leiras"
             android:inputType="number"
-            android:hint="@string/tetel_osszeg_editext"/>
+            android:hint="@string/tetel_osszeg_editext"
+            android:text="1234"/>
 
         <EditText
             android:id="@+id/tetel_darabszam"
@@ -45,7 +48,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:layout_toRightOf="@id/tetel_osszeg"
-            android:hint="darabszám"/>
+            android:hint="darabszám"
+            android:text="2"/>
 
     </LinearLayout>
 

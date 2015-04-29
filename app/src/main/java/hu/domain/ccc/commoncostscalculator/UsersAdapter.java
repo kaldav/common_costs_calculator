@@ -1,5 +1,6 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,21 +50,26 @@ public class UsersAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+        final View myView;
        if(view == null) {
 
-           view = View.inflate(parent.getContext(), layoutResource ,null);
+           myView = View.inflate(parent.getContext(), layoutResource ,null);
+       }
+        else
+       {
+           myView = view;
        }
         final Users user = items.get(position);
-        TextView userNameTextView = (TextView)view.findViewById(R.id.username);
+        TextView userNameTextView = (TextView)myView.findViewById(R.id.username);
         userNameTextView.setText(user.getUserName());
 
-        TextView emailTextView = (TextView)view.findViewById(R.id.name);
+        TextView emailTextView = (TextView)myView.findViewById(R.id.name);
         emailTextView.setText(user.getName());
 
         if(layoutResource == R.layout.listitem_item_add_user)
         {
 
-            view.setOnClickListener(new View.OnClickListener() {
+            myView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -71,28 +77,24 @@ public class UsersAdapter extends BaseAdapter{
 
 
                     if(user.isChecked())
-                        v.setBackgroundColor(Color.CYAN);
+                        myView.setBackgroundColor(Color.CYAN);
                     else
-                        v.setBackgroundColor(R.color.bg_login);
+                        myView.setBackgroundColor(v.getResources().getColor(R.color.bg_login));
 
                 }
 
             });
 
             if(user.isChecked())
-                view.setBackgroundColor(Color.CYAN);
+                myView.setBackgroundColor(Color.CYAN);
             else
-                view.setBackgroundColor(R.color.bg_login);
+                myView.setBackgroundColor(myView.getResources().getColor(R.color.bg_login));
 
-
-           // CheckBox c = (CheckBox) view.findViewById(R.id.check);
-            //if(c.isChecked())
-              //  checked.add(user);
 
         }
 
 
-        return view;
+        return myView;
     }
 
     public void ClearItems()
