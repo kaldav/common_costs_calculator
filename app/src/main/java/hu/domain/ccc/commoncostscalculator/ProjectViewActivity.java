@@ -1,5 +1,6 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -119,12 +120,31 @@ public class ProjectViewActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
-       Items item = bundle.getParcelable("item");
+        final Items item = bundle.getParcelable("item");
         items.add(item);
 
         itemList.setAdapter(new ItemsAdapter(items));
 
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Dialog dialog = new Dialog(ProjectViewActivity.this);
+                dialog.setContentView(R.layout.dialog_item_view);
+                dialog.setTitle(item.getName());
+
+                ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
+                ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
+                ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
+                ((TextView) dialog.findViewById(R.id.tetel_darabszam)).setText("Darabszám: " + Integer.toString(item.getCount()));
+                ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
+
+                dialog.show();
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
