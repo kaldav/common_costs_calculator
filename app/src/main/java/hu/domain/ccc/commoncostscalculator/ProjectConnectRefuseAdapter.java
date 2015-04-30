@@ -1,12 +1,21 @@
 package hu.domain.ccc.commoncostscalculator;
 
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,9 +81,53 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
                // }
                // items.remove(i);
                // notifyDataSetChanged();
-                String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
-                items.remove(Integer.parseInt(params[0]));
-                notifyDataSetChanged();
+                final String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
+
+                SharedPreferences settings;
+                String session;
+                ArrayList<NameValuePair> data;
+                String PrefFileName = "data";
+
+                settings = parent.getContext().getSharedPreferences(PrefFileName, 0);
+                session = settings.getString("session","");
+
+                data = new ArrayList<>();
+                data.add(new BasicNameValuePair("action", "refuse_project"));
+                data.add(new BasicNameValuePair("session", session));
+                data.add(new BasicNameValuePair("project_id", params[1]));
+
+                Downloader connection = new Downloader(data);
+                connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                    @Override
+                    public void onDownloadSuccess(String result) {
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                int res = response.getInt("success");
+                                if (res==1)
+                                {
+                                    items.remove(Integer.parseInt(params[0]));
+                                    notifyDataSetChanged();
+                                }
+                                else {
+                                    Toast.makeText(parent.getContext(), "Nem sikerült visszautasítani, probáld újra késöbb", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                         catch (Exception e) {
+                                Toast.makeText(parent.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                            }
+
+
+                    }
+
+                    @Override
+                    public void onDownloadFailed(String message) {
+                        Toast.makeText(parent.getContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                connection.start();
+
+
             }
         });
 
@@ -87,9 +140,49 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
                 //while (projekt!=items.get(i).getName().toString()) {
                 //    i++;
                 //}
-                String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
-                items.remove(Integer.parseInt(params[0]));
-                notifyDataSetChanged();
+                final String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
+
+                SharedPreferences settings;
+                String session;
+                ArrayList<NameValuePair> data;
+                String PrefFileName = "data";
+
+                settings = parent.getContext().getSharedPreferences(PrefFileName, 0);
+                session = settings.getString("session","");
+
+                data = new ArrayList<>();
+                data.add(new BasicNameValuePair("action", "join_project"));
+                data.add(new BasicNameValuePair("session", session));
+                data.add(new BasicNameValuePair("project_id", params[1]));
+
+                Downloader connection = new Downloader(data);
+                connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                    @Override
+                    public void onDownloadSuccess(String result) {
+                        try {
+                            JSONObject response = new JSONObject(result);
+                            int res = response.getInt("success");
+                            if (res==1)
+                            {
+                                items.remove(Integer.parseInt(params[0]));
+                                notifyDataSetChanged();
+                            }
+                            else {
+                                Toast.makeText(parent.getContext(), "Nem sikerült visszautasítani, probáld újra késöbb", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Exception e) {
+                            Toast.makeText(parent.getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onDownloadFailed(String message) {
+                        Toast.makeText(parent.getContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                connection.start();
             }
         });
 
