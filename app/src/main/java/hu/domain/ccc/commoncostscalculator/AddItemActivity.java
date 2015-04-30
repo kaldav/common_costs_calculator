@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -104,19 +105,14 @@ public class AddItemActivity extends ActionBarActivity {
                 }
 
 
-                /*Downloader connection = new Downloader(data);
+                Downloader connection = new Downloader(data);
                 connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
                     public void onDownloadSuccess(String result) {
                         try {
                             JSONArray response = new JSONArray(result);
 
-                            Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
-                            Intent i = new Intent();
-                            i.putExtra("users",users);
-                            if (getParent() != null)
-                                getParent().setResult(RESULT_OK,i);
-                            else
-                                setResult(RESULT_OK,i);
+
+
                             finish();
 
                         }catch (Exception e) {
@@ -128,7 +124,7 @@ public class AddItemActivity extends ActionBarActivity {
                         Toast.makeText(AddItemActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
-                connection.start();*/
+                connection.start();
 
                 Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
                 Intent i = new Intent();
