@@ -69,6 +69,9 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,NewProjectActivity.class);
                 startActivity(i);
+                //Result-ért hívd és ha visszajön akkor frissiteni kell a listát!!
+                //Térj vissza projektel és add hozzá az adapterhez és akkor rajzoltasd ki,
+                // adapter igyis ugyis létre van hozva ekkor már
             }
         });
         loadProjects();
@@ -82,33 +85,42 @@ public class MainActivity extends ActionBarActivity {
         connection = new Downloader(data);
         connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
             public void onDownloadSuccess(String result) {
-                try {
-                    projectItems = new ArrayList<>();
-                    JSONArray response = new JSONArray(result);
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject temp = response.getJSONObject(i);
-                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-                        projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"),Integer.parseInt(temp.getString("id"))));
-                    }
-                    projectAdapter = new ProjectAdapter(projectItems);
-                    projectList.setAdapter(projectAdapter);
-                    projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent in = new Intent(MainActivity.this,ProjectViewActivity.class);
-                            in.putExtra("project_id",(int)id);
-                            startActivity(in);
-                        }
-                    });
-                }catch (JSONException e) {
-                    //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
+                if (result.startsWith("null")) //Ha nincs projekt amit elfogadnia kéne
+                {
                     Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
-                    //Akkor is legyen ilyen ha nincs benne semmi
-                    projectList = (ListView) findViewById(R.id.Project_list);
+
+                    projectList = (ListView) findViewById(R.id.Project_list); // Ha új projektet hoz létre elég hozzáadni
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
                 }
-                catch (Exception e){
-                    Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                else {
+                    try {
+                        projectItems = new ArrayList<>();
+                        JSONArray response = new JSONArray(result);
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject temp = response.getJSONObject(i);
+                            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+                            projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"), Integer.parseInt(temp.getString("id"))));
+                        }
+                        projectAdapter = new ProjectAdapter(projectItems);
+                        projectList.setAdapter(projectAdapter);
+                        projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent in = new Intent(MainActivity.this, ProjectViewActivity.class);
+                                in.putExtra("project_id", (int) id);
+                                startActivity(in);
+                            }
+                        });
+                    } catch (JSONException e) {
+                        //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
+                        Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
+                        //Akkor is legyen ilyen ha nincs benne semmi
+                        projectList = (ListView) findViewById(R.id.Project_list);
+                        projectAdapter = new ProjectAdapter(projectItems);
+                        projectList.setAdapter(projectAdapter);
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             public void onDownloadFailed(String message) {

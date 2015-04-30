@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -46,20 +47,26 @@ public class ProjectConnectRefusedActivity extends ActionBarActivity {
         connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
             @Override
             public void onDownloadSuccess(String result) {
-                try {
-                    JSONArray response = new JSONArray(result);
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject temp = response.getJSONObject(i);
-                        ///////////////////////////////String name, String description, int id
-                        projectItems.add(new Projects(temp.getString("name"),temp.getString("description"),temp.getInt("id")));
+                if (result.startsWith("null")) //Ha nincs projekt amit elfogadnia kéne
+                {
+                    ((TextView) findViewById(R.id.Cake)).setText("Önnek nincs elfogadásra váró projektje!");
+                    Toast.makeText(ProjectConnectRefusedActivity.this, "Úgytűnik nincsenek barátai", Toast.LENGTH_LONG).show();
+                } else
+                {
+                    try {
+                        JSONArray response = new JSONArray(result);
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject temp = response.getJSONObject(i);
+                            ///////////////////////////////String name, String description, int id
+                            projectItems.add(new Projects(temp.getString("name"), temp.getString("description"), temp.getInt("id")));
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(ProjectConnectRefusedActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
-                }
-                    catch (Exception e){
-                    Toast.makeText(ProjectConnectRefusedActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                }
-                projectAdapter = new ProjectConnectRefuseAdapter(projectItems);
-                projectList.setAdapter(projectAdapter);
+                    projectAdapter = new ProjectConnectRefuseAdapter(projectItems);
+                    projectList.setAdapter(projectAdapter);
 
+                }
             }
 
             @Override
