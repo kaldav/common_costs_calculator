@@ -3,6 +3,7 @@ package hu.domain.ccc.commoncostscalculator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -165,6 +166,8 @@ public class NewProjectActivity extends ActionBarActivity{
                                 int ret = response.getInt("project_id");
                                 if (ret>0) {
                                     Toast.makeText(NewProjectActivity.this, "A projekt sikeresen létrejött!", Toast.LENGTH_SHORT).show();
+                                    Intent returnIntent = new Intent();
+                                    setResult(RESULT_OK, returnIntent);
                                     finish();
                                 }
                                 else if (ret==-1){

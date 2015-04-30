@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
         newProjectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,NewProjectActivity.class);
-                startActivity(i);
+                startActivityForResult(i,1);
                 //Result-ért hívd és ha visszajön akkor frissiteni kell a listát!!
                 //Térj vissza projektel és add hozzá az adapterhez és akkor rajzoltasd ki,
                 // adapter igyis ugyis létre van hozva ekkor már
