@@ -18,20 +18,12 @@
         android:textAllCaps="false"
         android:shadowRadius="3"
         android:textSize="15dp"/>
-    <Button
-        android:id="@+id/elfogadasraVaroProjectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Elfogadásra váró projektek"
-        android:layout_below="@id/newProjectButton"
-        android:layout_alignParentRight="true"
-        android:textAllCaps="false"
-        android:shadowRadius="5"
-        android:textSize="12dp"/>
+
 
     <ListView
         android:id="@+id/Project_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/elfogadasraVaroProjectButton"/>
+        android:layout_below="@+id/newProjectButton"/>
+
 </RelativeLayout>

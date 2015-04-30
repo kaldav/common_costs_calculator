@@ -37,5 +37,6 @@
     <string name="tetel_osszeg_editext">Összeg</string>
     <string name="title_activity_project_connect_refused">ProjectConnectRefusedActivity</string>
     <string name="elutasitButton">Elutasít</string>
+    <string name="action_invites">Meghívások</string>
 
 </resources>

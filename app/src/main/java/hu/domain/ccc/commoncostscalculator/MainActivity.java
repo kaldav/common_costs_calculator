@@ -32,7 +32,6 @@ public class MainActivity extends ActionBarActivity {
     ListView projectList;
     ProjectAdapter projectAdapter;
     Button newProjectButton;
-    Button elfogadasraVaroProjectekButton;
     SharedPreferences settings;
     String session;
     ArrayList<NameValuePair> data;
@@ -51,15 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
         MainActivity.this.setResult(1); //alapból visszára ne a belépésre dobjon
         newProjectButton= (Button)findViewById(R.id.newProjectButton);
-        elfogadasraVaroProjectekButton = (Button) findViewById(R.id.elfogadasraVaroProjectButton);
-        elfogadasraVaroProjectekButton.setOnClickListener(
-                new View.OnClickListener() {
-                       @Override
-                          public void onClick(View v) {
-                           Intent i = new Intent(MainActivity.this,ProjectConnectRefusedActivity.class);
-                           startActivity(i);
-                             }
-                        });
+
 
 
 
@@ -68,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
         newProjectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,NewProjectActivity.class);
-                startActivityForResult(i,1);
+                startActivityForResult(i, 1);
                 //Result-ért hívd és ha visszajön akkor frissiteni kell a listát!!
                 //Térj vissza projektel és add hozzá az adapterhez és akkor rajzoltasd ki,
                 // adapter igyis ugyis létre van hozva ekkor már
@@ -163,6 +154,11 @@ public class MainActivity extends ActionBarActivity {
             //visszalépés
             MainActivity.this.setResult(0); //ilyenkor viszont a beléptető screenre dobjon
             finish();
+        }
+        else if(id == R.id.invitesBTN)
+        {
+            Intent i = new Intent(MainActivity.this,ProjectConnectRefusedActivity.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

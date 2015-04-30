@@ -2,7 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="hu.domain.ccc.commoncostscalculator.MainActivity">
+
+    <item
+        android:id="@+id/invitesBTN"
+        android:title="Meghívások"/>
     <item
         android:id="@+id/logoutBTN"
         android:title="@string/logout"/>
+
 </menu>
