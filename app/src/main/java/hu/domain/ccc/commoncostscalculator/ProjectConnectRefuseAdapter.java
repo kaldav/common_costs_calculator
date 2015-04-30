@@ -39,6 +39,8 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
     public View getView(int i, View view, final ViewGroup parent) {
         ViewHolder holder;
 
+        Projects proji = items.get(i);
+
         if (view == null) {
             view = View.inflate(parent.getContext(),R.layout.listitem_project_connect_refuse,null);
             holder= new ViewHolder();
@@ -46,8 +48,6 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
             holder.nameTextView = (TextView) view.findViewById(R.id.projectName);
             holder.refuse = (Button) view.findViewById(R.id.elutasitButton);
             holder.connect = (Button) view.findViewById(R.id.csatlakozasButton);
-            holder.refuse.setTag(Integer.toString(i));
-            holder.connect.setTag(Integer.toString(i));
             view.setTag(holder);
         }
         else {
@@ -55,23 +55,25 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
         }
 
 
-        Projects proji = items.get(i);
 
         holder.nameTextView.setText(proji.getName());
         holder.descTextView.setText(proji.getDescription());
-        holder.refuse.setTag(Integer.toString(i));
-        holder.connect.setTag(Integer.toString(i));
+        holder.refuse.setTag(Integer.toString(i)+":"+Integer.toString(proji.getId()));
+        holder.connect.setTag(Integer.toString(i)+":"+Integer.toString(proji.getId()));
 
         holder.refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Ha elutasítja !! PHP ra vár, de már eltud távolítani, csak rosszat
-                int i = 0;
-                String projekt = ((TextView) parent.findViewById(R.id.projectName)).getText().toString();
-                while (!projekt.matches(items.get(i).getName().toString())) {
-                    i++;
-                }
-                items.remove(i);
+                //int i = 0;
+                //String projekt = ((TextView) parent.findViewById(R.id.projectName)).getText().toString();
+                // while (!projekt.matches(items.get(i).getName().toString())) {
+                //    i++;
+               // }
+               // items.remove(i);
+               // notifyDataSetChanged();
+                String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
+                items.remove(Integer.parseInt(params[0]));
                 notifyDataSetChanged();
             }
         });
@@ -85,7 +87,8 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
                 //while (projekt!=items.get(i).getName().toString()) {
                 //    i++;
                 //}
-                items.remove((int)v.getTag());
+                String[] params = v.getTag().toString().split(":"); //Param 0: listitemId param 1: projiId
+                items.remove(Integer.parseInt(params[0]));
                 notifyDataSetChanged();
             }
         });
