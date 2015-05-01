@@ -107,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
                         //Ha null jön vissza nem lehet tömbé alakítani->szépítést igényel, tűzoltűsnak jó
                         Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
                         //Akkor is legyen ilyen ha nincs benne semmi
+                        projectItems = new ArrayList<Projects>();
                         projectList = (ListView) findViewById(R.id.Project_list);
                         projectAdapter = new ProjectAdapter(projectItems);
                         projectList.setAdapter(projectAdapter);
