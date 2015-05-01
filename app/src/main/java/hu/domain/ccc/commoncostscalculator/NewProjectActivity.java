@@ -124,7 +124,7 @@ public class NewProjectActivity extends ActionBarActivity{
                                     return true;
                                 }
                             });
-                            Toast.makeText(NewProjectActivity.this, "Hozzaádva!("+id+")", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewProjectActivity.this, "Hozzaádva!", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(NewProjectActivity.this, "Ez a felhasználó már szerepel a kiválasztott résztvevők között!", Toast.LENGTH_SHORT).show();
@@ -211,14 +211,19 @@ public class NewProjectActivity extends ActionBarActivity{
                     connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
                         public void onDownloadSuccess(String result) {
                             try {
-                                JSONArray response = new JSONArray(result);
-                                for (int i = 0; i < response.length(); i++) {
-                                    JSONObject temp = response.getJSONObject(i);
-                                    usersItems.add( new Users(temp.getString("id"),temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")) );
+                                if (!result.startsWith("null")) {
+                                    JSONArray response = new JSONArray(result);
+                                    for (int i = 0; i < response.length(); i++) {
+                                        JSONObject temp = response.getJSONObject(i);
+                                        usersItems.add(new Users(temp.getString("id"), temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
+                                    }
+                                }
+                                else{
+                                    usersItems.add(new Users("","Nincs találat!", "", "", ""));
                                 }
                             }catch (Exception e) {
                                 e.printStackTrace();
-                                usersItems.add(new Users("","Nincs találat!", "", "", ""));
+                                Toast.makeText(NewProjectActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
                             adapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                             user_list.setAdapter(adapter);
