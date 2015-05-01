@@ -45,7 +45,7 @@ public class UsersAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return (long)Integer.parseInt(items.get(position).getId());
     }
 
     @Override

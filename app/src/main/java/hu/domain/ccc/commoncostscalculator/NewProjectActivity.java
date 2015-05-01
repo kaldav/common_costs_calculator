@@ -94,6 +94,7 @@ public class NewProjectActivity extends ActionBarActivity{
                             selectedItems.add(usersItems.get(position));
                             selectedAdapter = new UsersAdapter(selectedItems, R.layout.listitem_users);
                             selected_user_list.setAdapter(selectedAdapter);
+
                             selected_user_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
                                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1,final int pos, long id) {
@@ -123,7 +124,7 @@ public class NewProjectActivity extends ActionBarActivity{
                                     return true;
                                 }
                             });
-                            Toast.makeText(NewProjectActivity.this, "Hozzaádva!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewProjectActivity.this, "Hozzaádva!("+id+")", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             Toast.makeText(NewProjectActivity.this, "Ez a felhasználó már szerepel a kiválasztott résztvevők között!", Toast.LENGTH_SHORT).show();

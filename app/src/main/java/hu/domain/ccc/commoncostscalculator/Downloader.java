@@ -69,8 +69,8 @@ public class Downloader extends Thread {
             @Override
             public void run() {
                 if (onConnectionListener != null){
-                    //onConnectionListener.onDownloadFailed("Sikertelen kapcsolódás, ellenőrizd az internetkapcsolatot!");
-                    onConnectionListener.onDownloadFailed(message);
+                    onConnectionListener.onDownloadFailed("Sikertelen kapcsolódás, ellenőrizd az Internet kapcsolatot!");
+                    //onConnectionListener.onDownloadFailed(message);
                 }
             }
         });
