@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 if (result.startsWith("null")) //Ha nincs projekt amit elfogadnia kéne
                 {
                     Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
-
+                    projectItems = new ArrayList<Projects>();
                     projectList = (ListView) findViewById(R.id.Project_list); // Ha új projektet hoz létre elég hozzáadni
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
