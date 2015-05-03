@@ -29,10 +29,6 @@ public class UsersAdapter extends BaseAdapter{
         this.checked = new ArrayList<Users>();
     }
 
-
-
-
-
     @Override
     public int getCount() {
         return items.size();

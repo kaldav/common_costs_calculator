@@ -55,7 +55,8 @@ public class ProjectAdapter extends BaseAdapter {
 
         holder.nameTextView.setText(proji.getName());
         holder.descTextView.setText(proji.getDescription());
-        holder.dateTextView.setText(proji.getStartTime().toString());
+        String times[] = proji.getStartTime().toString().split(" ");
+        holder.dateTextView.setText(times[5]+" "+times[1]+ ". "+ times[2]+ " "+ times[3]);
 
 
         return view;
