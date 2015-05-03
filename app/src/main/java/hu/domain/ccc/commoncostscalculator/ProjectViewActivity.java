@@ -114,11 +114,15 @@ public class ProjectViewActivity extends ActionBarActivity {
 
             }
         });
+
+        GetItems();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(data == null)
+            return;
         Bundle bundle = data.getExtras();
         final Items item = bundle.getParcelable("item");
         items.add(item);
@@ -166,5 +170,41 @@ public class ProjectViewActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    ArrayList<Items> GetItems()
+    {
+        final ArrayList<Items> item_list = new ArrayList<>();
+        ArrayList<NameValuePair> data = new ArrayList<>();
+        data.add(new BasicNameValuePair("action", "get_items"));
+        data.add(new BasicNameValuePair("session", session));
+        data.add(new BasicNameValuePair("project_id", String.valueOf(project_id)));
+        Downloader connection = new Downloader(data);
+        connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+            public void onDownloadSuccess(String result) {
+                try {
+                    /*JSONArray response = new JSONArray(result);
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject temp = response.getJSONObject(i);
+                        item_list.add(new Items(temp.getString("name"),
+                                                temp.getString("description"),
+                                                Integer.parseInt(temp.getString("value")),
+                                                //Integer.parseInt(temp.getString("amount")),
+
+                                                ));
+                    }*/
+                }catch (Exception e) {
+                    //usersItems.add(new Users("","Nincs találat!", "","","")); // erre kéne szebb megoldás
+                }
+
+            }
+            public void onDownloadFailed(String message) {
+                Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+        connection.start();
+
+        return item_list;
     }
 }

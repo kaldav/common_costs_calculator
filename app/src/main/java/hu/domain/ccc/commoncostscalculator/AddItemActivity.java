@@ -53,6 +53,8 @@ public class AddItemActivity extends ActionBarActivity {
         Bundle b = getIntent().getExtras();
         ArrayList<Users> projektUsers = b.getParcelableArrayList("users");
         project_id = b.getString("projekt_id");
+        if(projektUsers.size() == 1 && projektUsers.get(0).getUserName().equals("Nincs találat!"))
+            projektUsers = new ArrayList<>();
         final UsersAdapter adapter = new UsersAdapter(projektUsers,R.layout.listitem_item_add_user);
         user_list = (ListView) findViewById(R.id.resztvevok);
         user_list.setAdapter(adapter);
@@ -84,7 +86,7 @@ public class AddItemActivity extends ActionBarActivity {
                 final String tetel_darabszam = darabszamET.getText().toString().trim();
 
 
-                if(tetel_elnevezes.isEmpty() || tetel_leiras.isEmpty() || tetel_darabszam.isEmpty() || tetel_osszeg.isEmpty() || users.size() == 0)
+                if(tetel_elnevezes.isEmpty() || tetel_leiras.isEmpty() || tetel_darabszam.isEmpty() || tetel_osszeg.isEmpty())
                 {
                     Toast.makeText(AddItemActivity.this, "Ez így kevés lesz...",Toast.LENGTH_SHORT).show();
                     return; // valami nincs kitöltve, nem csinálunk semmit
