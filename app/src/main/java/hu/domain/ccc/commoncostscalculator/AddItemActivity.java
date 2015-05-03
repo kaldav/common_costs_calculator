@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -111,11 +112,15 @@ public class AddItemActivity extends ActionBarActivity {
                 connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
                     public void onDownloadSuccess(String result) {
                         try {
-                            JSONArray response = new JSONArray(result);
-
-
-
-                            finish();
+                            JSONObject response = new JSONObject(result);
+                            if(response.getString("success").equals("1"))
+                            {
+                                Toast.makeText(AddItemActivity.this, "Tétel hozzáadva", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(AddItemActivity.this, "Hiba történt a tétel hozzáadása során", Toast.LENGTH_SHORT).show();
+                            }
 
                         }catch (Exception e) {
                             Toast.makeText(AddItemActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
