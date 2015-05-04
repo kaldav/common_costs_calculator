@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 
 
 public class ProjectViewActivity extends ActionBarActivity {
@@ -35,16 +36,17 @@ public class ProjectViewActivity extends ActionBarActivity {
     Button addItem;
     ListView itemList;
     ArrayList<Items> items;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_view);
         settings = getSharedPreferences(PrefFileName, 0);
-        session = settings.getString("session","");
+        session = settings.getString("session", "");
         Intent intent = getIntent();
-        project_id = intent.getIntExtra("project_id",0);
-        descriptionTV = (TextView)findViewById(R.id.projectDescription);
-        user_list = (ListView)findViewById(R.id.usersList);
+        project_id = intent.getIntExtra("project_id", 0);
+        descriptionTV = (TextView) findViewById(R.id.projectDescription);
+        user_list = (ListView) findViewById(R.id.usersList);
         itemList = (ListView) findViewById(R.id.items);
 
         items = new ArrayList<Items>();
@@ -61,7 +63,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                     JSONObject response = new JSONObject(result);
                     getSupportActionBar().setTitle(response.getString("name"));
                     descriptionTV.setText(response.getString("description"));
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(ProjectViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -86,14 +88,15 @@ public class ProjectViewActivity extends ActionBarActivity {
                     JSONArray response = new JSONArray(result);
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject temp = response.getJSONObject(i);
-                        usersItems.add(new Users(temp.getString("id"),temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
+                        usersItems.add(new Users(temp.getString("id"), temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
                     }
-                }catch (Exception e) {
-                    usersItems.add(new Users("","Nincs találat!", "","","")); // erre kéne szebb megoldás
+                } catch (Exception e) {
+                    usersItems.add(new Users("", "Nincs találat!", "", "", "")); // erre kéne szebb megoldás
                 }
                 usersAdapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                 user_list.setAdapter(usersAdapter);
             }
+
             public void onDownloadFailed(String message) {
                 Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
             }
@@ -101,16 +104,15 @@ public class ProjectViewActivity extends ActionBarActivity {
         connection.start();
 
 
-
         addItem = (Button) findViewById(R.id.addItem);
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ProjectViewActivity.this,AddItemActivity.class);
+                Intent i = new Intent(ProjectViewActivity.this, AddItemActivity.class);
 
-                i.putExtra("users", usersItems );
-                i.putExtra("projekt_id",String.valueOf(project_id));
-                startActivityForResult(i,0);
+                i.putExtra("users", usersItems);
+                i.putExtra("projekt_id", String.valueOf(project_id));
+                startActivity(i);
 
             }
         });
@@ -121,33 +123,9 @@ public class ProjectViewActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data == null)
-            return;
-        Bundle bundle = data.getExtras();
-        final Items item = bundle.getParcelable("item");
-        items.add(item);
 
-        itemList.setAdapter(new ItemsAdapter(items));
-
-        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Dialog dialog = new Dialog(ProjectViewActivity.this);
-                dialog.setContentView(R.layout.dialog_item_view);
-                dialog.setTitle(item.getName());
-
-                ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
-                ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
-                ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
-                ((TextView) dialog.findViewById(R.id.tetel_darabszam)).setText("Darabszám: " + Integer.toString(item.getCount()));
-                ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
-
-                dialog.show();
-            }
-        });
 
     }
-
 
 
     @Override
@@ -173,8 +151,7 @@ public class ProjectViewActivity extends ActionBarActivity {
     }
 
 
-    ArrayList<Items> GetItems()
-    {
+    void GetItems() {
         final ArrayList<Items> item_list = new ArrayList<>();
         ArrayList<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_items"));
@@ -182,29 +159,87 @@ public class ProjectViewActivity extends ActionBarActivity {
         data.add(new BasicNameValuePair("project_id", String.valueOf(project_id)));
         Downloader connection = new Downloader(data);
         connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
-            public void onDownloadSuccess(String result) {
+            public void onDownloadSuccess(String result) {  //itemek letöltése
                 try {
-                    /*JSONArray response = new JSONArray(result);
+                    JSONArray response = new JSONArray(result);
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject temp = response.getJSONObject(i);
-                        item_list.add(new Items(temp.getString("name"),
-                                                temp.getString("description"),
-                                                Integer.parseInt(temp.getString("value")),
-                                                //Integer.parseInt(temp.getString("amount")),
+                        item_list.add(new Items(
+                                temp.getString("name"),
+                                temp.getString("description"),
+                                Integer.parseInt(temp.getString("value")),
+                                0, //Integer.parseInt(temp.getString("amount")),
+                                new ArrayList<Users>(),
+                                temp.getString("id")
+                        ));
+                        final ItemsAdapter adapter = new ItemsAdapter(item_list);
+                        itemList.setAdapter(adapter);
+                        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {  //itemről részletes info
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                               final Items item = (Items)adapter.getItem(position);
+                                final Dialog dialog = new Dialog(ProjectViewActivity.this);
+                                dialog.setContentView(R.layout.dialog_item_view);
+                                //dialog.setTitle(item.getName());
 
-                                                ));
-                    }*/
-                }catch (Exception e) {
-                    //usersItems.add(new Users("","Nincs találat!", "","","")); // erre kéne szebb megoldás
+                                //userek lekérdezése az item-hez
+                                final ArrayList<Users> users = new ArrayList<>();
+                                ArrayList<NameValuePair> data = new ArrayList<>();
+                                data.add(new BasicNameValuePair("action", "get_item_users"));
+                                data.add(new BasicNameValuePair("session", session));
+                                data.add(new BasicNameValuePair("item_id", item.getId()));
+                                Downloader connection = new Downloader(data);
+                                connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                                    public void onDownloadSuccess(String result) {
+                                        try {
+                                            JSONArray response = new JSONArray(result);
+                                            for (int i = 0; i < response.length(); i++) {
+                                                JSONObject temp = response.getJSONObject(i);
+                                                users.add(new Users(temp.getString("user_id"), temp.getString("username"), temp.getString("email"), temp.getString("firstname"), temp.getString("lastname")));
+                                            }
+
+                                            item.setUsers(users);
+
+
+                                            ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
+                                            ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
+                                            ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
+                                            ((TextView) dialog.findViewById(R.id.tetel_darabszam)).setText("Darabszám: " + Integer.toString(item.getCount()));
+                                            ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
+
+
+                                            dialog.show();
+
+                                        } catch (Exception e) {
+                                            Toast.makeText(ProjectViewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+
+                                    public void onDownloadFailed(String message) {
+                                        Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                connection.start();
+
+
+
+
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(ProjectViewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
+
             public void onDownloadFailed(String message) {
                 Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
         connection.start();
-
-        return item_list;
     }
+
+
 }

@@ -133,13 +133,14 @@ public class AddItemActivity extends ActionBarActivity {
                 });
                 connection.start();
 
-                Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
+                /*Items item = new Items(tetel_elnevezes,tetel_leiras,Integer.parseInt(tetel_osszeg), Integer.parseInt(tetel_darabszam), users);
                 Intent i = new Intent();
                 i.putExtra("item",item);
                 if (getParent() != null)
                     getParent().setResult(RESULT_OK,i);
                 else
                     setResult(RESULT_OK,i);
+                    */
                 finish();
 
 

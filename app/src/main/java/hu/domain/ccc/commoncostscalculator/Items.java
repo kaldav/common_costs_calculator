@@ -14,19 +14,21 @@ public class Items implements Parcelable {
     String description; // tétel leírása
     int sum; // tétel összege
     int count; // tétel ddarabszám
+    String id; // item id
 
     ArrayList<Users> users; // tételhez tartozó felhasználók
 
 
-    public Items(String name, String description, int sum, int count, ArrayList<Users> users) {
+    public Items(String name, String description, int sum, int count, ArrayList<Users> users, String  id) {
         this.name = name;
         this.description = description;
         this.sum = sum;
         this.count = count;
         this.users = users;
+        this.id = id;
     }
     public Items(Parcel parcel) {
-        String[] data = new String[4];
+        String[] data = new String[5];
         parcel.readStringArray(data);
 
         ArrayList<Users> u = new ArrayList<Users>();
@@ -36,9 +38,17 @@ public class Items implements Parcelable {
         this.description = data[1];
         this.sum = Integer.parseInt(data[2]);
         this.count = Integer.parseInt(data[3]);
+        this.id = data[4];
         this.users = u;
     }
 
+    public void setUsers(ArrayList<Users> users) {
+        this.users = users;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public String getDescription() {
         return description;
@@ -73,7 +83,8 @@ public class Items implements Parcelable {
                                             name,
                                             description,
                                             Integer.toString(sum),
-                                            Integer.toString(count)
+                                            Integer.toString(count),
+                                            id
           });
 
         dest.writeTypedList(users);
