@@ -40,6 +40,12 @@ public class MainActivity extends ActionBarActivity {
 
     /* Called when the second activity's finished */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //loadProjects();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadProjects();
     }
 
