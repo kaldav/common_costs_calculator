@@ -10,6 +10,7 @@ public class Projects {
     private Date startTime;
     private String description;
     private int id;
+    private int creatorId;
     private boolean closed;
 
     public boolean isClosed() {
@@ -21,8 +22,9 @@ public class Projects {
         this.closed = closed;
     }
 
-    public Projects(String name, Date startTime, String description, int id, boolean closed) {
+    public Projects(String name, Date startTime, String description, int id, boolean closed,int creatorId) {
         this.name = name;
+        this.creatorId=creatorId;
         this.startTime = startTime;
         this.description = description;
         this.id = id;
