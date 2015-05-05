@@ -92,7 +92,9 @@ public class MainActivity extends ActionBarActivity {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject temp = response.getJSONObject(i);
                             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-                            projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"), Integer.parseInt(temp.getString("id"))));
+                            boolean asd = temp.getInt("is_closed") == 0 ? false : true ;
+                            projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"), Integer.parseInt(temp.getString("id")),asd));
+                            int a = 0;
                         }
                         projectAdapter = new ProjectAdapter(projectItems);
                         projectList.setAdapter(projectAdapter);

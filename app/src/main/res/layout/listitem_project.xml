@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:text="PrijectName"
         android:textSize="20dp"
+        android:layout_toLeftOf="@+id/imageView"
         android:textStyle="bold"/>
 
     <TextView
@@ -26,7 +27,18 @@
         android:layout_width="match_parent"
         android:text="ProjectDesc"
         android:textSize="16dp"
+        android:layout_toLeftOf="@+id/imageView"
         android:layout_height="wrap_content"
         android:layout_below="@+id/projectName"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageView"
+        android:visibility="invisible"
+        android:background="@drawable/closed_projekt"
+
+        android:layout_alignParentRight="true"
+        />
 
 </RelativeLayout>
