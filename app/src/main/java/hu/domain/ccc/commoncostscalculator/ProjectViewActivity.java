@@ -17,16 +17,17 @@ import android.widget.Toast;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
 
 public class ProjectViewActivity extends ActionBarActivity {
 
     int project_id;
+    int project_sajat_id;
+    int project_tulaj_id;
     String PrefFileName = "data";
     SharedPreferences settings;
     String session;
@@ -36,6 +37,9 @@ public class ProjectViewActivity extends ActionBarActivity {
     Button addItem;
     ListView itemList;
     ArrayList<Items> items;
+    MenuItem projekt_zaras;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class ProjectViewActivity extends ActionBarActivity {
 
         items = new ArrayList<Items>();
 
+
+
         ArrayList<NameValuePair> data = new ArrayList<>();
         data.add(new BasicNameValuePair("action", "get_project"));
         data.add(new BasicNameValuePair("project_id", String.valueOf(project_id)));
@@ -63,6 +69,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                     JSONObject response = new JSONObject(result);
                     getSupportActionBar().setTitle(response.getString("name"));
                     descriptionTV.setText(response.getString("description"));
+                    project_tulaj_id = response.getInt("creator_id");
                 } catch (Exception e) {
                     Toast.makeText(ProjectViewActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -105,6 +112,7 @@ public class ProjectViewActivity extends ActionBarActivity {
 
 
         addItem = (Button) findViewById(R.id.addItem);
+
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +126,8 @@ public class ProjectViewActivity extends ActionBarActivity {
         });
 
         GetItems();
+        //
+        AdminBeallit();
     }
 
     @Override
@@ -127,11 +137,55 @@ public class ProjectViewActivity extends ActionBarActivity {
 
     }
 
+    protected void AdminBeallit()
+    {
+        ArrayList<NameValuePair> data = new ArrayList<>();
+        data.add(new BasicNameValuePair("action", "get_own_id"));
+        data.add(new BasicNameValuePair("session", session));
+        Downloader connection2 = new Downloader(data);
+        connection2.setOnConnectionListener(new Downloader.OnConnectionListener() {
+                                               @Override
+                                               public void onDownloadSuccess(String result) {
+
+                                                   try {
+                                                       JSONObject response = new JSONObject(result);
+                                                       int ret = response.getInt("user_id");
+                                                       if (ret==-1) { //nincs admin
+
+                                                       }
+                                                       else {
+                                                        project_sajat_id = ret;
+                                                        if (project_sajat_id == project_tulaj_id)
+                                                        {
+                                                            projekt_zaras.setEnabled(true);
+                                                        }
+                                                           else {
+                                                            projekt_zaras.setEnabled(false);
+                                                        }
+                                                        Toast.makeText(ProjectViewActivity.this, "admin: " + project_sajat_id, Toast.LENGTH_SHORT).show();
+                                                       }
+                                                   } catch (JSONException e) {
+                                                       e.printStackTrace();
+                                                   }
+                                               }
+
+                                               @Override
+                                               public void onDownloadFailed(String message) {
+
+                                               }
+                                           });
+        connection2.start();
+
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project_view, menu);
+        projekt_zaras = (MenuItem) menu.findItem(R.id.action_project_finish);
         return true;
     }
 
@@ -144,7 +198,13 @@ public class ProjectViewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
+        }
+        else if (id == R.id.action_project_finish){
+
+
+            return  true;
         }
 
         return super.onOptionsItemSelected(item);

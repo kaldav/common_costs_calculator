@@ -24,6 +24,7 @@
     <string name="user_search_button">Felhasználó keresése</string>
     <string name="title_activity_new_project">Új projekt létrehozása</string>
     <string name="active_projects">Aktív projektek</string>
+    <string name="action_project_finish">Projekt lezárása</string>
     <string name="title_activity_project_view">Projekt megtekintése</string>
     <string name="participants">Aktív résztvevők:</string>
     <string name="first_name">Keresztnév</string>
