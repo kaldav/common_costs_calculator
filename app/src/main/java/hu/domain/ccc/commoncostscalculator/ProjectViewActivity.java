@@ -136,7 +136,7 @@ public class ProjectViewActivity extends ActionBarActivity {
 
 
     }
-
+        //a
     protected void AdminBeallit()
     {
         ArrayList<NameValuePair> data = new ArrayList<>();
