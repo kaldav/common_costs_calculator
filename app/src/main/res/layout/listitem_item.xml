@@ -13,7 +13,9 @@
         <TextView
             android:id="@+id/tetel_elnevezese"
             android:layout_width="0dp"
+            android:textStyle="bold"
             android:layout_weight="0.5"
+            android:text="sample"
             android:layout_height="wrap_content"
 
             />
@@ -21,6 +23,7 @@
         <TextView
             android:id="@+id/tetel_osszege"
             android:layout_width="0dp"
+            android:text="sample"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -31,6 +34,7 @@
 
     <TextView
         android:id="@+id/tetel_leiras"
+        android:text="sample"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
