@@ -197,7 +197,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                                                            else {
                                                             projekt_zaras.setEnabled(false);
                                                         }
-                                                        Toast.makeText(ProjectViewActivity.this, "admin: " + project_sajat_id, Toast.LENGTH_SHORT).show();
+                                                        //Toast.makeText(ProjectViewActivity.this, "admin: " + project_sajat_id, Toast.LENGTH_SHORT).show();
                                                        }
                                                    } catch (JSONException e) {
                                                        e.printStackTrace();
