@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProjectViewActivity extends ActionBarActivity {
@@ -33,11 +34,13 @@ public class ProjectViewActivity extends ActionBarActivity {
     String session;
     TextView descriptionTV;
     private UsersAdapter usersAdapter;
+    private Penzugyi_tetel_adapter penzugyAdapter;
     ListView user_list;
     Button addItem;
     ListView itemList;
     ArrayList<Items> items;
     MenuItem projekt_zaras;
+    ListView penzugyek;
 
 
 
@@ -51,6 +54,7 @@ public class ProjectViewActivity extends ActionBarActivity {
         project_id = intent.getIntExtra("project_id", 0);
         descriptionTV = (TextView) findViewById(R.id.projectDescription);
         user_list = (ListView) findViewById(R.id.usersList);
+        penzugyek = (ListView) findViewById(R.id.penzugyek);
         itemList = (ListView) findViewById(R.id.items);
 
         items = new ArrayList<Items>();
@@ -128,6 +132,7 @@ public class ProjectViewActivity extends ActionBarActivity {
         GetItems();
         //
         AdminBeallit();
+        Penzugyek_kiirasa();
     }
 
     @Override
@@ -215,6 +220,41 @@ public class ProjectViewActivity extends ActionBarActivity {
 
     }
 
+    protected void Penzugyek_kiirasa()
+    {
+
+        final ArrayList<Penzugyi_tetel> penzugyItems = new ArrayList<>();
+
+        ArrayList<NameValuePair> data = new ArrayList<>();
+        data.add(new BasicNameValuePair("action", "get_project_info"));
+        data.add(new BasicNameValuePair("session", session));
+        data.add(new BasicNameValuePair("project_id", String.valueOf(project_id)));
+        Downloader connection = new Downloader(data);
+        connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
+            public void onDownloadSuccess(String result) {
+                try {
+                    JSONArray response = new JSONArray(result);
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject temp = response.getJSONObject(i);
+                        String kinek = temp.getString("to_user");
+                        //int osszeg = Integer.getInteger(temp.getString("value"));
+                        double osszeg = Double.parseDouble(temp.getString("value"));
+                        penzugyItems.add(new Penzugyi_tetel(kinek, (int)osszeg));
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(ProjectViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                penzugyAdapter = new Penzugyi_tetel_adapter(penzugyItems, R.layout.listitem_penzugyi_tetel);
+                penzugyek.setAdapter(penzugyAdapter);
+            }
+
+            public void onDownloadFailed(String message) {
+                Toast.makeText(ProjectViewActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+        connection.start();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

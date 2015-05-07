@@ -7,7 +7,7 @@
     android:fillViewport="true">
 
 
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="18dp"/>
     <TextView
+        android:layout_below="@+id/projectDescription"
         android:id="@+id/participants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,11 +36,13 @@
 
     <ListView
         android:id="@+id/usersList"
+        android:layout_below="@+id/participants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tetelekText"
+        android:layout_below="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -47,6 +50,7 @@
         />
     <ListView
         android:id="@+id/items"
+        android:layout_below="@+id/tetelekText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -54,11 +58,16 @@
 
     <Button
         android:id="@+id/addItem"
+        android:layout_below="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Új tétel"/>
 
-
-</LinearLayout>
+    <ListView
+        android:id="@+id/penzugyek"
+        android:layout_below="@+id/addItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+</RelativeLayout>
 
 </ScrollView>
