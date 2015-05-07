@@ -99,7 +99,7 @@ public class AddItemActivity extends ActionBarActivity {
                 data.add(new BasicNameValuePair("project_id", project_id));
                 data.add(new BasicNameValuePair("name", tetel_elnevezes));
                 data.add(new BasicNameValuePair("description",tetel_leiras ));
-                data.add(new BasicNameValuePair("amount",tetel_darabszam ));
+                data.add(new BasicNameValuePair("amount",tetel_osszeg ));
 
                 for (int i = 0; i < users.size();i++)
                 {
