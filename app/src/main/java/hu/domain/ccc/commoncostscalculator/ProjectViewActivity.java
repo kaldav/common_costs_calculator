@@ -137,6 +137,41 @@ public class ProjectViewActivity extends ActionBarActivity {
 
     }
         //a
+
+    protected void Projekt_zaras()
+    {
+        ArrayList<NameValuePair> data = new ArrayList<>();
+        data.add(new BasicNameValuePair("action", "close_project"));
+        data.add(new BasicNameValuePair("session", session));
+        data.add(new BasicNameValuePair("project_id", Integer.toString(project_id)));
+        Downloader connection2 = new Downloader(data);
+        connection2.setOnConnectionListener(new Downloader.OnConnectionListener() {
+            @Override
+            public void onDownloadSuccess(String result) {
+
+                try {
+                    JSONObject response = new JSONObject(result);
+                    int ret = response.getInt("success");
+                    if (ret==0) { //nincs admin
+                        Toast.makeText(ProjectViewActivity.this, "Sikertelen zárás!" + project_sajat_id, Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(ProjectViewActivity.this, "Sikeres zárás!" + project_sajat_id, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onDownloadFailed(String message) {
+
+            }
+        });
+        connection2.start();
+
+    }
     protected void AdminBeallit()
     {
         ArrayList<NameValuePair> data = new ArrayList<>();
@@ -203,7 +238,7 @@ public class ProjectViewActivity extends ActionBarActivity {
         }
         else if (id == R.id.action_project_finish){
 
-
+            Projekt_zaras();
             return  true;
         }
 
