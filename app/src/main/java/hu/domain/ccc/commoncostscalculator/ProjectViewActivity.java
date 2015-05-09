@@ -47,7 +47,7 @@ public class ProjectViewActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        GetItems();
+        GetItems();itemList.invalidate();
     }
 
     @Override
