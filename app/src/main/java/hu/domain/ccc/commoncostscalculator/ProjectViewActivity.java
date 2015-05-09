@@ -233,20 +233,26 @@ public class ProjectViewActivity extends ActionBarActivity {
         Downloader connection = new Downloader(data);
         connection.setOnConnectionListener(new Downloader.OnConnectionListener() {
             public void onDownloadSuccess(String result) {
-                try {
-                    JSONArray response = new JSONArray(result);
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject temp = response.getJSONObject(i);
-                        String kinek = temp.getString("to_user");
-                        //int osszeg = Integer.getInteger(temp.getString("value"));
-                        double osszeg = Double.parseDouble(temp.getString("value"));
-                        penzugyItems.add(new Penzugyi_tetel(kinek, (int)osszeg));
+                if (!result.startsWith("null")) {
+
+                    try {
+                        JSONArray response = new JSONArray(result);
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject temp = response.getJSONObject(i);
+                            String kinek = temp.getString("to_user");
+                            //int osszeg = Integer.getInteger(temp.getString("value"));
+                            double osszeg = Double.parseDouble(temp.getString("value"));
+                            penzugyItems.add(new Penzugyi_tetel(kinek, (int) osszeg));
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(ProjectViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                } catch (Exception e) {
-                    Toast.makeText(ProjectViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                penzugyAdapter = new Penzugyi_tetel_adapter(penzugyItems, R.layout.listitem_penzugyi_tetel);
-                penzugyek.setAdapter(penzugyAdapter);
+
+                    penzugyAdapter = new Penzugyi_tetel_adapter(penzugyItems, R.layout.listitem_penzugyi_tetel);
+                    penzugyek.setAdapter(penzugyAdapter);
+
+
             }
 
             public void onDownloadFailed(String message) {
@@ -350,7 +356,7 @@ public class ProjectViewActivity extends ActionBarActivity {
 
                                             ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
                                             ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
-                                            ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
+                                            ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg: " + Integer.toString(item.getSum()));
                                             ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
 
 
