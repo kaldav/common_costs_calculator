@@ -43,7 +43,11 @@ public class ProjectViewActivity extends ActionBarActivity {
     MenuItem projekt_zaras;
     ListView penzugyek;
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetItems();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +143,6 @@ public class ProjectViewActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
     }
         //a
