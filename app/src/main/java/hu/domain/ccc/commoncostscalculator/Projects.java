@@ -30,7 +30,7 @@ public class Projects {
         this.id = id;
         this.closed=closed;
     }
-    //van ahol ennyi elég, sporoltam kicsit
+    //van ahol ennyi elÃ©g, sporoltam kicsit
     public Projects(String name, String description, int id) {
         this.name = name;
         //this.startTime = startTime;

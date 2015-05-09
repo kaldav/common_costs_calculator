@@ -38,7 +38,7 @@
         android:id="@+id/usersList"
         android:layout_below="@+id/participants"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="150dp"/>
 
     <TextView
         android:id="@+id/tetelekText"
@@ -53,7 +53,7 @@
         android:id="@+id/items"
         android:layout_below="@+id/tetelekText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         />
 
 
@@ -68,7 +68,8 @@
         android:id="@+id/penzugyek"
         android:layout_below="@+id/addItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="150dp"
+        ></ListView>
 </RelativeLayout>
 
 </ScrollView>
