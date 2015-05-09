@@ -299,6 +299,7 @@ public class ProjectViewActivity extends ActionBarActivity {
                 if (result.startsWith("null")) //Ha nincs projekt amit elfogadnia kéne
                 {
                     Toast.makeText(ProjectViewActivity.this, "Nincs még tétel", Toast.LENGTH_LONG).show();
+                    
                     //item_list = new ArrayList<Projects>();
                     //item_list = (ListView) findViewById(R.id.Project_list); /
                     //projectAdapter = new ProjectAdapter(projectItems);
