@@ -50,7 +50,7 @@ public class ProjectConnectRefusedActivity extends ActionBarActivity {
                 if (result.startsWith("null")) //Ha nincs projekt amit elfogadnia kéne
                 {
                     ((TextView) findViewById(R.id.Cake)).setText("Önnek nincs elfogadásra váró projektje!");
-                    Toast.makeText(ProjectConnectRefusedActivity.this, "Úgytűnik nincsenek barátai", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ProjectConnectRefusedActivity.this, "Önnek nincs elfogadásra váró projektje!", Toast.LENGTH_LONG).show();
                 } else
                 {
                     try {
