@@ -45,22 +45,26 @@ public class UsersAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+       ViewHolder holder;
         final View myView;
-       if(view == null) {
+       if(convertView == null) {
+           myView = View.inflate(parent.getContext(),layoutResource, null);
+           holder = new ViewHolder();
 
-           myView = View.inflate(parent.getContext(), layoutResource ,null);
+           holder.userNameTextView = (TextView)myView.findViewById(R.id.username);
+           holder.nameTextView = (TextView)myView.findViewById(R.id.name);
+           myView.setTag(holder);
        }
         else
        {
-           myView = view;
+           myView = convertView;
+           holder = (ViewHolder)convertView.getTag();
        }
         final Users user = items.get(position);
-        TextView userNameTextView = (TextView)myView.findViewById(R.id.username);
-        userNameTextView.setText(user.getUserName());
 
-        TextView emailTextView = (TextView)myView.findViewById(R.id.name);
-        emailTextView.setText(user.getName());
+        holder.userNameTextView.setText(user.getUserName());
+        holder.nameTextView.setText(user.getName());
 
         if(layoutResource == R.layout.listitem_item_add_user)
         {
@@ -91,6 +95,11 @@ public class UsersAdapter extends BaseAdapter{
 
 
         return myView;
+    }
+
+    static class ViewHolder {
+        TextView userNameTextView;
+        TextView nameTextView;
     }
 
     public void ClearItems()
