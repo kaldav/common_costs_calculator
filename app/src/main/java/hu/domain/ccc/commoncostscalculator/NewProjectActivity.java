@@ -134,6 +134,7 @@ public class NewProjectActivity extends ActionBarActivity{
                 Button dialogButton = (Button) dialog.findViewById(R.id.cancelButton);
                 dialogButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        PSearchString = "";
                         dialog.dismiss();
                     }
                 });
@@ -221,16 +222,19 @@ public class NewProjectActivity extends ActionBarActivity{
                                 else{
                                     usersItems.add(new Users("","Nincs találat!", "", "", ""));
                                 }
+
                             }catch (Exception e) {
                                 e.printStackTrace();
                                 Toast.makeText(NewProjectActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
                             adapter = new UsersAdapter(usersItems, R.layout.listitem_users);
                             user_list.setAdapter(adapter);
+                            StopTimerTask();
                         }
                         public void onDownloadFailed(String message) {
                             Toast.makeText(NewProjectActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
+
                     });
                     connection.start();
 
