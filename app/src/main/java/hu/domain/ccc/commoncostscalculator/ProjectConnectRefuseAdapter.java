@@ -70,6 +70,7 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
         holder.refuse.setTag(Integer.toString(i)+":"+Integer.toString(proji.getId()));
         holder.connect.setTag(Integer.toString(i)+":"+Integer.toString(proji.getId()));
 
+        //elutasít egy projektet
         holder.refuse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,10 +132,12 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
             }
         });
 
+        //csatlakozik egy projekthez
         holder.connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Ha elfogadja itt törénik majd valami !! PHP ra vár, de már eltud távolítani csak rosszat
+                //Ha elfogadja itt törénik majd valami !!
+
                 //int i=0;
                 //String projekt = ((TextView)parent.findViewById(R.id.projectName)).getText().toString();
                 //while (projekt!=items.get(i).getName().toString()) {
@@ -160,6 +163,7 @@ public class ProjectConnectRefuseAdapter extends BaseAdapter {
                     @Override
                     public void onDownloadSuccess(String result) {
                         try {
+                            //Ha 1 akkor sikeres
                             JSONObject response = new JSONObject(result);
                             int res = response.getInt("success");
                             if (res==1)

@@ -87,7 +87,8 @@ public class MainActivity extends ActionBarActivity {
                 {
                     Toast.makeText(MainActivity.this, "Itt az ideje létrehozni egy projektet", Toast.LENGTH_LONG).show();
                     projectItems = new ArrayList<Projects>();
-                    projectList = (ListView) findViewById(R.id.Project_list); // Ha új projektet hoz létre elég hozzáadni
+                    // Ha új projektet hoz létre elég hozzáadni
+                    projectList = (ListView) findViewById(R.id.Project_list);
                     projectAdapter = new ProjectAdapter(projectItems);
                     projectList.setAdapter(projectAdapter);
                 }
@@ -97,11 +98,13 @@ public class MainActivity extends ActionBarActivity {
                         JSONArray response = new JSONArray(result);
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject temp = response.getJSONObject(i);
+                            //Date time parsolás
                             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
                             boolean asd = temp.getInt("is_closed") == 0 ? false : true ;
                             projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"), Integer.parseInt(temp.getString("id")),asd,Integer.parseInt(temp.getString("creator_id"))));
                             int a = 0;
                         }
+                        //projekt lista születése
                         projectAdapter = new ProjectAdapter(projectItems);
                         projectList.setAdapter(projectAdapter);
                         projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
