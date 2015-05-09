@@ -40,5 +40,7 @@
     <string name="title_activity_project_connect_refused">Meghívásaid</string>
     <string name="elutasitButton">Elutasít</string>
     <string name="action_invites">Meghívások</string>
+    <string name="ItemsText">Tételek:</string>
+    <string name="resztvevokText">Résztvevők</string>
 
 </resources>

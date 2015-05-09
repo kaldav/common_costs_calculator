@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_login">
+    android:background="@color/bg_login"
+    android:padding="7dp">
 <TextView
     android:id="@+id/tetel_elnevezes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
     />
 
     <TextView
@@ -14,39 +16,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tetel_elnevezes"
+        android:paddingBottom="5dp"
         />
-
-    <LinearLayout
-        android:id="@+id/linear"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tetel_leiras">
-
-        <TextView
-            android:id="@+id/tetel_darabszam"
-            android:width="0dp"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
 
 
         <TextView
             android:id="@+id/tetel_osszeg"
-            android:width="0dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tetel_leiras"
+            android:paddingBottom="5dp"
             />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/resztvevokText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
-        android:text="Résztvevők"
+        android:layout_below="@id/tetel_osszeg"
+        android:textStyle="bold"
+        android:text="@string/resztvevokText"
         />
 
     <ListView

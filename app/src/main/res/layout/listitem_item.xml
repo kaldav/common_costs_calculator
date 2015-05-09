@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_login"
+   >
+
     android:background="@color/bg_login" >
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tetel_elnevezese"
-            android:layout_width="0dp"
-            android:textStyle="bold"
-            android:layout_weight="0.5"
-            android:text="sample"
-            android:layout_height="wrap_content"
-
-            />
+     <TextView
+        android:id="@+id/tetel_elnevezese"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:text="sample"
+        android:layout_height="wrap_content"
+         android:paddingTop="7dp"
+      />
 
         <TextView
             android:id="@+id/tetel_osszege"
-            android:layout_width="0dp"
-            android:text="sample"
-            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:text="sample_osszeg"
+            android:layout_alignParentRight="true"
 
             />
 
-    </LinearLayout>
-
     <TextView
         android:id="@+id/tetel_leiras"
-        android:text="sample"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textSize="13sp"
 
-</LinearLayout>
+        android:text="sample_leiras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tetel_elnevezese"
+        android:paddingBottom="10dp"
+
+        />
+
+</RelativeLayout>
 

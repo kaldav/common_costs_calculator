@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -313,7 +314,9 @@ public class ProjectViewActivity extends ActionBarActivity {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                final Items item = (Items)adapter.getItem(position);
+
                                 final Dialog dialog = new Dialog(ProjectViewActivity.this);
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                                 dialog.setContentView(R.layout.dialog_item_view);
                                 //dialog.setTitle(item.getName());
 
@@ -339,7 +342,6 @@ public class ProjectViewActivity extends ActionBarActivity {
                                             ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
                                             ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
                                             ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
-                                            ((TextView) dialog.findViewById(R.id.tetel_darabszam)).setText("Darabszám: " + Integer.toString(item.getCount()));
                                             ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
 
 

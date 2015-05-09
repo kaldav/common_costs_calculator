@@ -22,46 +22,24 @@
         android:hint="Leírás"
         android:text="ezg egy sajtos tétel"/>
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/tetel_leiras"
-       >
+
 
 
         <EditText
             android:id="@+id/tetel_osszeg"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tetel_leiras"
             android:inputType="number"
             android:hint="@string/tetel_osszeg_editext"
             android:text="1234"/>
 
-        <EditText
-            android:id="@+id/tetel_darabszam"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:layout_toRightOf="@id/tetel_osszeg"
-            android:hint="darabszám"
-            android:text="2"/>
-
-    </LinearLayout>
-
-
-
-
 
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear"
+        android:layout_below="@id/tetel_osszeg"
         android:text="Résztvevők:"
         android:textSize="18dp"
         android:textStyle="bold"/>

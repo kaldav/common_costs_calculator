@@ -26,7 +26,6 @@ public class AddItemActivity extends ActionBarActivity {
     EditText elnevezesET; // tétel neve
     EditText osszegET; // tétel összege
     EditText leirasET; // tétel leírása
-    EditText darabszamET; // darabszám
 
 
     String session;
@@ -49,7 +48,6 @@ public class AddItemActivity extends ActionBarActivity {
         elnevezesET = (EditText) findViewById(R.id.elnevezes);
         osszegET = (EditText) findViewById(R.id.tetel_osszeg);
         leirasET = (EditText) findViewById(R.id.tetel_leiras);
-        darabszamET = (EditText) findViewById(R.id.tetel_darabszam);
 
         Bundle b = getIntent().getExtras();
         ArrayList<Users> projektUsers = b.getParcelableArrayList("users");
@@ -84,10 +82,9 @@ public class AddItemActivity extends ActionBarActivity {
                 final String tetel_elnevezes = elnevezesET.getText().toString().trim();
                 final String tetel_leiras = leirasET.getText().toString().trim();
                 final String tetel_osszeg = osszegET.getText().toString().trim();
-                final String tetel_darabszam = darabszamET.getText().toString().trim();
 
 
-                if(tetel_elnevezes.isEmpty() || tetel_leiras.isEmpty() || tetel_darabszam.isEmpty() || tetel_osszeg.isEmpty())
+                if(tetel_elnevezes.isEmpty() || tetel_leiras.isEmpty() || tetel_osszeg.isEmpty())
                 {
                     Toast.makeText(AddItemActivity.this, "Ez így kevés lesz...",Toast.LENGTH_SHORT).show();
                     return; // valami nincs kitöltve, nem csinálunk semmit
