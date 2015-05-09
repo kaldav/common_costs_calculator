@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity {
     List<Projects> projectItems;
     ListView projectList;
     ProjectAdapter projectAdapter;
+    int g=0;
     Button newProjectButton;
     SharedPreferences settings;
     String session;
@@ -101,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
                             //Date time parsolás
                             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
                             boolean asd = temp.getInt("is_closed") == 0 ? false : true ;
+                            g=temp.getInt("is_closed");
                             projectItems.add(new Projects(temp.getString("name"), format.parse(temp.getString("start_time")), temp.getString("description"), Integer.parseInt(temp.getString("id")),asd,Integer.parseInt(temp.getString("creator_id"))));
                             int a = 0;
                         }
@@ -111,6 +113,7 @@ public class MainActivity extends ActionBarActivity {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Intent in = new Intent(MainActivity.this, ProjectViewActivity.class);
                                 in.putExtra("project_id", (int) id);
+                                in.putExtra("open",projectItems.get(position).isClosed());
                                 startActivity(in);
                             }
                         });

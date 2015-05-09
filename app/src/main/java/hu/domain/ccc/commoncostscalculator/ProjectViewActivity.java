@@ -42,6 +42,7 @@ public class ProjectViewActivity extends ActionBarActivity {
     ArrayList<Items> items;
     MenuItem projekt_zaras;
     ListView penzugyek;
+    boolean opene;
 
     @Override
     protected void onResume() {
@@ -56,6 +57,7 @@ public class ProjectViewActivity extends ActionBarActivity {
         settings = getSharedPreferences(PrefFileName, 0);
         session = settings.getString("session", "");
         Intent intent = getIntent();
+        opene = intent.getBooleanExtra("open", true);
         project_id = intent.getIntExtra("project_id", 0);
         descriptionTV = (TextView) findViewById(R.id.projectDescription);
         user_list = (ListView) findViewById(R.id.usersList);
@@ -121,6 +123,11 @@ public class ProjectViewActivity extends ActionBarActivity {
 
 
         addItem = (Button) findViewById(R.id.addItem);
+        if ( opene)
+        {
+            addItem.setEnabled(false);
+
+        }
 
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
