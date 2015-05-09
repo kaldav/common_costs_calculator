@@ -349,7 +349,7 @@ public class ProjectViewActivity extends ActionBarActivity {
 
                                             ((TextView)dialog.findViewById(R.id.tetel_elnevezes)).setText("Elnevezés: " + item.getName());
                                             ((TextView)dialog.findViewById(R.id.tetel_leiras)).setText("Leírás: " + item.getDescription());
-                                            ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg :" + Integer.toString(item.getSum()));
+                                            ((TextView) dialog.findViewById(R.id.tetel_osszeg)).setText("Összeg: " + Integer.toString(item.getSum()));
                                             ((ListView)dialog.findViewById(R.id.tetel_resztvevok)).setAdapter(new UsersAdapter(item.getUsers(),R.layout.listitem_users));
 
 
