@@ -65,15 +65,15 @@ public class Penzugyi_tetel_adapter extends BaseAdapter{
         {
             //ő jön nekem
             mennyivelTartozomTextView.setText(Integer.toString(Math.abs(ptetel.getMennyivel())));
-            mennyivelTartozomTextView.setTextColor(Color.GREEN);
-            mennyivelTartozomTextView.setBackgroundColor(Color.WHITE);
+            mennyivelTartozomTextView.setTextColor(Color.rgb(30,120,40));
+            //mennyivelTartozomTextView.setBackgroundColor(Color.WHITE);
         }
         else
         {
             //én jövök neki
             mennyivelTartozomTextView.setText(Integer.toString(Math.abs(ptetel.getMennyivel())));
             mennyivelTartozomTextView.setTextColor(Color.RED);
-            mennyivelTartozomTextView.setBackgroundColor(Color.WHITE);
+            //mennyivelTartozomTextView.setBackgroundColor(Color.WHITE);
         }
 
 
